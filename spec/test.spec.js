@@ -73,6 +73,19 @@ describe('API', () => {
                 expect(res.body.length).to.equal(comments.length);
             })
         });
-        
+    });
+    describe('POST /comment', () => {
+        it('sends back new comment object with status code of 200', () => {
+            const articleId = newData.comments[0].belongs_to;
+            return request
+            .post(`/api/articles/${articleId}/comments`)
+            .expect(200)
+            .then((res) => {
+                const comments = newData.comments;
+                expect(res.body[0].body).to.equal('new comment');
+                expect(res.body[0].created_by).to.equal('me');
+                expect(res.body.length).to.equal(comments.length);
+            })
+        });
     });
 });
