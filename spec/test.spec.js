@@ -49,4 +49,16 @@ describe('API', () => {
             })
         });
     });
+
+    describe('GET /articles', () => {
+        it('sends back correct object with status code of 200', () => {
+            return request
+            .get('/api/articles')
+            .then((res) => {
+                expect(res.body[0].title).to.equal(newData.articles[0].title);
+                expect(res.body.length).to.equal(newData.articles.length);
+                expect(res.status).to.equal(200);
+            })
+        });
+    });
 });
