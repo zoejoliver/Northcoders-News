@@ -26,9 +26,26 @@ describe('API', () => {
             return request
             .get('/api/topics')
             .then((res) => {
-                expect(res.body[0].title).to.equal('Football');
-                expect(res.body.length).to.equal(3);
+                expect(res.body[0].title).to.equal(newData.topics[0].title);
+                expect(res.body.length).to.equal(newData.topics.length);
                 expect(res.status).to.equal(200);
+            })
+        });
+        it('sends back correct object and status code for valid id', () => {
+            return request
+            .get('/api/topics/football/articles')
+            .expect(200)
+            .then((res) => {
+                expect(res.body[0].title).to.equal('Football is fun');
+                expect(res.body.length).to.equal(1);
+            })
+        });
+        it('sends back correct status code for invalid id', () => {
+            return request
+            .get('/api/topics/moomins/articles')
+            .expect(404)
+            .then((res) => {
+                expect(res.body.msg).to.equal('Page not found');
             })
         });
     });
