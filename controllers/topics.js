@@ -14,7 +14,7 @@ function getArticlesByTopic (req, res, next) {
     Articles.find({belongs_to: req.params.topic_id})
     .then((articles) => {
         if(articles.length > 0) res.send(articles);
-        else next();
+        else return next();
     })
     .catch((err) => {
         return next(err);
