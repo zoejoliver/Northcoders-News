@@ -11,9 +11,10 @@ function getArticles (req, res, next) {
 }
 
 function getArticleComments (req, res, next) {
-    Comments.find({belongs_to: req.params.article_id})
+    Comments.find({created_by: req.params.article_id})
     .then((comments) => {
-        res.send(comments);
+        if(comments.length > 0) res.send(comments);
+        else return next();
     })
     .catch((err) => {
         if(err.name === 'CastError') return next({err, type: 404});
@@ -28,6 +29,8 @@ function addCommentById (req, res, next) {
         votes: 0,
         created_at: Date.now()
     })
+    // also maybe save the new comments
+    // currently not updating db
     .then(() => {
         return Comments.find({})
         .then((comments) => {

@@ -11,7 +11,7 @@ router.get('/articles/:article_id/comments', getArticleComments);
 router.post('/articles/:article_id/comments', addCommentById);
 router.put('/articles/:article_id', addArticleVote);
 router.put('/comments/:comment_id', addCommentVote);
-router.delete('comments/:comment_id', removeComment);
-router.get('users/:username', getUserData);
+router.delete('/comments/:comment_id', removeComment);
+router.get('/users/:username', getUserData);
 
 module.exports = router;
