@@ -4,11 +4,11 @@ function getUserData (req, res, next) {
     Users.find({username: req.params.username})
     .then((data) => {
         if(data.length > 0) res.send(data);
-        else return next();
+        else next();
     })
     .catch((err) => {
         if (err.name === 'CastError')return next({err, type: 404, msg: 'Invalid username'})
-        return next(err);
+        next(err);
     })
 }
 

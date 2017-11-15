@@ -9,12 +9,19 @@ function addCommentVote (req, res, next) {
     })
     .catch((err) => {
         if (err.name === 'CastError')return next({err, type: 404})
-        return next(err);
+        next(err);
     })
 }
 
-function removeComment () {
-    
+function removeComment (req, res, next) {
+    Comments.findByIdAndRemove(req.params.comment_id)
+    .then((deletedComment) => {
+        res.send(deletedComment);
+    })
+    .catch((err) => {
+        if (err.name === 'CastError') return next({type: 404, msg: 'Comment not found'});
+        next(err);
+    })
 }
 
 function updateVoteCount (vote) {

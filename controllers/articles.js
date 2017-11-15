@@ -6,11 +6,11 @@ function getArticles (req, res, next) {
         Promise.all(getCommentCount(articles))
         .then((commentCount) => {
             const updatedArticles = addCommentCount(articles, commentCount);
-           res.send(updatedArticles);
+            res.send(updatedArticles);
         })
     })
     .catch((err) => {
-        return next(err);
+        next(err);
     })
 }
 function getCommentCount (arr) {
@@ -35,7 +35,7 @@ function getArticleComments (req, res, next) {
     })
     .catch((err) => {
         if (err.name === 'CastError')return next({err, type: 404, msg: 'Invalid article Id'})
-        return next(err);
+        next(err);
     })
 }
 
@@ -56,7 +56,7 @@ function addCommentById (req, res, next) {
         })
     })
     .catch((err) => {
-        return next(err);
+        next(err);
     })
 }
 
@@ -68,7 +68,7 @@ function addArticleVote (req, res, next) {
         res.send(article);    
     })
     .catch((err) => {
-        return next(err);
+        next(err);
     })
 }
 

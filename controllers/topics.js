@@ -6,7 +6,7 @@ function getTopics (req, res, next) {
         res.send(topics);
     })
     .catch((err) => {
-        return next(err);
+        next(err);
     })
 }
 
@@ -22,7 +22,7 @@ function getArticlesByTopic (req, res, next) {
     })
     .catch((err) => {
         if (err.name === 'CastError')return next({err, type: 404, msg: 'Invalid topic Id'})
-        return next(err);
+        next(err);
     })
 }
 

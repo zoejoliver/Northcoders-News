@@ -182,4 +182,22 @@ describe('API', () => {
             .expect(404)
         });
     });
+    describe('DELETE /comments', () => {
+        it('removes correct comment and status code', () => {
+            const commentId = newData.comments[0]._id;
+            return request
+            .delete(`/api/comments/${commentId}`)
+            .expect(200)
+        });
+        it('updates comments with correct one removed', () => {
+            const numComments = newData.comments.length;
+            return request
+            expect(newData.comments.length).to.equal(numComments -1);
+        });
+        it('returns correct status code for invalid comment id', () => {
+            return request
+            .delete('/api/comments/123')
+            .expect(404)
+        });
+    });
 });
