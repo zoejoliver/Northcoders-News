@@ -3,13 +3,28 @@ const {Articles, Comments} = require('../models/models');
 function getArticles (req, res, next) {
     Articles.find({})
     .then((articles) => {
-        res.send(articles);
+        Promise.all(getCommentCount(articles))
+        .then((commentCount) => {
+            const updatedArticles = addCommentCount(articles, commentCount);
+           res.send(updatedArticles);
+        })
     })
     .catch((err) => {
         return next(err);
     })
 }
-
+function getCommentCount (arr) {
+    return arr.map((article) => {
+        return Comments.count({belongs_to: article._id})
+    })
+}
+function addCommentCount (arr, count) {
+    return arr.map((article, i) => {
+        article = article.toObject();
+        article.comments = count[i];
+        return article;
+    })
+}
 function getArticleComments (req, res, next) {
     Comments.find({created_by: req.params.article_id})
     .then((comments) => {
@@ -42,8 +57,8 @@ function addCommentById (req, res, next) {
     })
 }
 
-function addArticleVote () {
-
+function addArticleVote (req, res, next) {
+    
 }
 
 module.exports = {getArticles, getArticleComments, addCommentById, addArticleVote};

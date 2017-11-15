@@ -26,13 +26,13 @@ app.use('/*', (req, res) => {
 
 app.use('/*', (req, res, next) => {
     if(err.type === 404) {
-        return res.status(404).send({msg: 'Page not found'});   
+        return res.status(err.status).send({msg: 'Page not found'});   
     }
     next(err);          
 })
 
 app.use((err, req, res, next) => {
-    res.status(500).send({err});
+    res.status(500).send({msg: 'Server Error'});
 })
 
 module.exports = app;

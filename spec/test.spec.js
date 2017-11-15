@@ -6,7 +6,7 @@ const app = require('../server');
 const saveTestData = require('../seed/test.seed');
 const { Articles, Comments, Topics, Users } = require('../models/models');
 const request = supertest(app);
-mongoose.Promise = Promise;
+mongoose.Promise = global.Promise;
 
 describe('API', () => {
     let newData;
@@ -27,9 +27,11 @@ describe('API', () => {
             .get('/api/topics')
             .expect(200)
             .then((res) => {
-                const topics = newData.topics;
-                expect(res.body[0].title).to.equal(topics[0].title);
-                expect(res.body.length).to.equal(topics.length);
+                expect(res.body.length).to.equal(3);
+                res.body.forEach((topic) => {
+                    expect(topic._id).to.be.a('string');
+                    expect(topic.title).to.be.oneOf(['Football', 'Cats', 'Cooking']);
+                })        
             })
         });
         it('sends back correct object and status code for valid id', () => {
@@ -37,7 +39,6 @@ describe('API', () => {
             .get('/api/topics/football/articles')
             .expect(200)
             .then((res) => {
-                expect(res.body[0].title).to.equal('Football is fun');
                 expect(res.body.length).to.equal(1);
             })
         });
@@ -55,11 +56,13 @@ describe('API', () => {
         it('sends back correct object with status code of 200', () => {
             return request
             .get('/api/articles')
+            .expect(200)
             .then((res) => {
-                const articles = newData.articles;
-                expect(res.body[0].title).to.equal(articles[0].title);
-                expect(res.body.length).to.equal(articles.length);
-                expect(res.status).to.equal(200);
+                expect(res.body.length).to.equal(2);
+                res.body.forEach(article => {
+                    expect(article.belongs_to).to.be.oneOf(['football', 'cats']);
+                    expect(article.title).to.be.oneOf(['Football is fun', 'Cats are great']);
+                })
             })
         });
         it('sends back correct object and status code for valid id', () => {
@@ -68,9 +71,8 @@ describe('API', () => {
             .get(`/api/articles/${articleId}/comments`)
             .expect(200)
             .then((res) => {
-                const comments = newData.comments;
-                expect(res.body[0].body).to.equal(comments[0].body);
-                expect(res.body.length).to.equal(comments.length);
+                expect(res.body.length).to.equal(2);
+                expect(res.body[0].body).to.be.oneOf(['this is a comment', 'this is another comment']);
             })
         });
         it('sends back correct status code for invalid id', () => {
@@ -79,6 +81,14 @@ describe('API', () => {
             .expect(404)
             .then((res) => {
                 expect(res.body.msg).to.equal('Page not found');
+            })
+        });
+        it('sends back articles with comment count', () => {
+            return request
+            .get('/api/articles')
+            .expect(200)
+            .then((res) => {
+                expect(res.body[0].comments).to.be.a('number');
             })
         });
     });
