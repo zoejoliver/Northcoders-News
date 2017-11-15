@@ -20,19 +20,17 @@ app.use(bodyParser);
 
 app.use('/api', apiRouter);
 
-app.use('/*', (req, res) => {
-    res.status(404).send({msg: 'Page not found'});
-})
-
 app.use('/*', (req, res, next) => {
-    if(err.type === 404) {
-        return res.status(err.status).send({msg: 'Page not found'});   
-    }
-    next(err);          
-})
-
-app.use((err, req, res, next) => {
-    res.status(500).send({msg: 'Server Error'});
-})
+    res.status(404).send({msg: "Page not found"});
+  })
+  
+  app.use('/*', (err, req, res, next) => {
+    if(err.type === 404) return res.status(404).send({msg: err.msg})
+    next(err);
+  })
+  
+  app.use((err, req, res, next) => {
+    res.status(500).send({err});
+  })
 
 module.exports = app;

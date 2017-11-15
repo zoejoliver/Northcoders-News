@@ -7,7 +7,8 @@ function getUserData (req, res, next) {
         else return next();
     })
     .catch((err) => {
-        if(err.name === 'CastError') return next({err, type: 404});
+        if (err.name === 'CastError')return next({err, type: 404, msg: 'Invalid username'})
+        return next(err);
     })
 }
 

@@ -74,7 +74,7 @@ describe('API', () => {
             })
         });
         it('sends back correct object and status code for valid id', () => {
-            const articleId = newData.comments[0].created_by;
+            const articleId = newData.comments[0].belongs_to;
             return request
             .get(`/api/articles/${articleId}/comments`)
             .expect(200)
@@ -88,7 +88,7 @@ describe('API', () => {
             .get('/api/articles/zoe/comments')
             .expect(404)
             .then((res) => {
-                expect(res.body.msg).to.equal('Page not found');
+                expect(res.body.msg).to.equal('Invalid article Id');
             })
         });
         it('sends back articles with comment count', () => {
@@ -153,6 +153,33 @@ describe('API', () => {
             .then((res) => {
                 expect(res.body.votes).to.equal(prevVotes - 1);
             })
+        });
+    });
+    describe('PUT /comments', () => {
+        it('updates comment votes with either up vote', () => {
+            const commentId = newData.comments[0]._id;
+            const prevVotes = newData.comments[0].votes;
+            return request
+            .put(`/api/comments/${commentId}?vote=up`)
+            .expect(200)
+            .then((res) => {
+                expect(res.body.votes).to.equal(prevVotes + 1);
+            })
+        });
+        it('updates comment votes with down vote', () => {
+            const commentId = newData.comments[1]._id;
+            const prevVotes = newData.comments[1].votes;
+            return request
+            .put(`/api/comments/${commentId}?vote=down`)
+            .expect(200)
+            .then((res) => {
+                expect(res.body.votes).to.equal(prevVotes - 1);
+            })
+        });
+        it('returns correct status code for invalid comment id', () => {
+            return request
+            .put('/api/comments/123?vote=down')
+            .expect(404)
         });
     });
 });

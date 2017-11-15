@@ -25,14 +25,17 @@ function addCommentCount (arr, count) {
         return article;
     })
 }
+
 function getArticleComments (req, res, next) {
-    Comments.find({created_by: req.params.article_id})
+    Comments.find({belongs_to: req.params.article_id})
     .then((comments) => {
-        if(comments.length > 0) res.send(comments);
-        else return next();
+        if(comments.length < 1) return next();
+        res.send(comments);
+        
     })
     .catch((err) => {
-        if(err.name === 'CastError') return next({err, type: 404});
+        if (err.name === 'CastError')return next({err, type: 404, msg: 'Invalid article Id'})
+        return next(err);
     })
 }
 
@@ -53,7 +56,7 @@ function addCommentById (req, res, next) {
         })
     })
     .catch((err) => {
-        if(err.name === 'CastError') return next({err, type: 404});
+        return next(err);
     })
 }
 
