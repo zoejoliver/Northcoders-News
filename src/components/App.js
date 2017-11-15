@@ -1,6 +1,7 @@
 import React from 'react';
-import {BrowserRouter, Switch} from 'react-router-dom' 
+import {BrowserRouter, Switch, Route} from 'react-router-dom' 
 import Homepage from './Homepage';
+import NoMatch from './NoMatch';
 
 class App extends React.Component {
     render () {
@@ -9,7 +10,8 @@ class App extends React.Component {
                 <section>
                     <div>
                         <Switch>
-                            <Route exact path='/' component={Homepage}/>
+                            <Route exact path='/' component= {Homepage}/>
+                            <Route component= {NoMatch}/>
                         </Switch>
                     </div>
                 </section>
