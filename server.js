@@ -1,20 +1,12 @@
-if (!process.env.NODE_ENV) process.env.NODE_ENV = 'dev';
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser').json();
 const app = express();
-const config = require('./config');
 const {DB} = require('./config');
 const apiRouter = require('./routes/apiRouter');
 mongoose.Promise = global.Promise;
 
 mongoose.connect(DB, {useMongoClient: true});
-.then(() => {
-    console.log('successfully connected to ', DB);
-})
-.catch((err) => {
-    console.log('connection failed', err);
-})
 
 app.use(bodyParser);
 
