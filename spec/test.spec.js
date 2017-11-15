@@ -50,6 +50,14 @@ describe('API', () => {
                 expect(res.body.msg).to.equal('Page not found');
             })
         });
+        it('sends back topic articles with comment count', () => {
+            return request
+            .get('/api/topics/cats/articles')
+            .expect(200)
+            .then((res) => {
+                expect(res.body[0].comments).to.be.a('number');
+            })
+        });
     });
 
     describe('GET /articles', () => {
@@ -122,6 +130,28 @@ describe('API', () => {
             .expect(404)
             .then((res) => {
                 expect(res.body.msg).to.equal('Page not found');
+            })
+        });
+    });
+    describe('PUT /articles', () => {
+        it('updates article votes with either up vote', () => {
+            const articleId = newData.articles[0]._id;
+            const prevVotes = newData.articles[0].votes;
+            return request
+            .put(`/api/articles/${articleId}?vote=up`)
+            .expect(200)
+            .then((res) => {
+                expect(res.body.votes).to.equal(prevVotes + 1);
+            })
+        });
+        it('updates article votes with down vote', () => {
+            const articleId = newData.articles[1]._id;
+            const prevVotes = newData.articles[1].votes;
+            return request
+            .put(`/api/articles/${articleId}?vote=down`)
+            .expect(200)
+            .then((res) => {
+                expect(res.body.votes).to.equal(prevVotes - 1);
             })
         });
     });
