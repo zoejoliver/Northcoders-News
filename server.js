@@ -4,13 +4,13 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser').json();
 const app = express();
 const config = require('./config');
-const db = config.DB[process.env.NODE_ENV] || process.env.DB;
+const {DB} = require('./config');
 const apiRouter = require('./routes/apiRouter');
 mongoose.Promise = global.Promise;
 
-mongoose.connect(db, {useMongoClient: true})
+mongoose.connect(DB, {useMongoClient: true});
 .then(() => {
-    console.log('successfully connected to ', db);
+    console.log('successfully connected to ', DB);
 })
 .catch((err) => {
     console.log('connection failed', err);
