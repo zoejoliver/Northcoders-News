@@ -5,6 +5,9 @@ const app = express();
 const {DB} = require('./config');
 const apiRouter = require('./routes/apiRouter');
 mongoose.Promise = global.Promise;
+const cors = require('cors');
+
+app.use(cors());
 
 mongoose.connect(DB, {useMongoClient: true});
 
