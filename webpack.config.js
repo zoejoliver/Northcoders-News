@@ -24,16 +24,16 @@ module.exports = {
           presets: ['react', 'env']
         }
       },
-      // {
-      //   test: /\.js$/,
-      //   include: PATHS.src,
-      //   enforce: 'pre',
-      //   loader: 'eslint-loader',
-      //   options: {
-      //     emitWarning: true,
-      //     fix: true
-      //   },
-      // },
+      {
+        test: /\.js$/,
+        include: PATHS.src,
+        enforce: 'pre',
+        loader: 'eslint-loader',
+        options: {
+          emitWarning: true,
+          fix: true
+        },
+      },
       {
         test: /\.css$/,
         use: ['style-loader', 'css-loader']
