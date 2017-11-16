@@ -18,8 +18,8 @@ class App extends React.Component {
                         <Switch>
                             <Route exact path='/' component= {Homepage}/>
                             <Route path='/topics/:topic/articles' component= {ArticleList}/>
-                            <Route exact path='/articles' component= {ArticleList}/>
-                            <Route exact path='/articles/:article' component= {ArticleItem}/>
+                            <Route path='/articles' component= {ArticleList}/>
+                            <Route path='/articles/:article' component= {ArticleItem}/>
                             <Route path='/articles/:article/comments' component= {Comments}/>
                             <Route component= {NoMatch}/>
                         </Switch>
