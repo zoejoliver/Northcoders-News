@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {getMostPopular} from '../actions';
 import {NavLink} from 'react-router-dom';
 
-class Homepage extends React.Component {
+export class Homepage extends React.Component {
   constructor(props) {
     super(props);
   }

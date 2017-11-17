@@ -47,8 +47,6 @@ function addCommentById (req, res, next) {
         votes: 0,
         created_at: Date.now()
     })
-    // also maybe save the new comments
-    // currently not updating db
     .then(() => {
         return Comments.find({})
         .then((comments) => {

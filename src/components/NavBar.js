@@ -4,7 +4,7 @@ const topics = ['football', 'cooking', 'coding'];
 class NavBar extends React.Component {
   render() {
     return (
-      <nav className='navbar navbar-default navbar-fixed-top'>
+      <nav className='navbar navbar-default'>
         <div className='container'>
           <div className="navbar-left">
             <ul className='nav navbar-nav'>

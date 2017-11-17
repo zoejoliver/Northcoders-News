@@ -26,6 +26,18 @@ export default (prevState = getInitialState(), action) => {
       data: [],
       error: action.payload
     });
+  case types.POST_COMMENTS_REQUEST:
+    return Object.assign({}, prevState, {
+      loading: true,
+      data: [],
+      error: null
+    });
+  case types.POST_COMMENTS_FAILURE:
+    return Object.assign({}, prevState, {
+      loading: false,
+      data: [],
+      error: action.payload
+    });
   default:
     return prevState;
   }
