@@ -39,11 +39,11 @@ function getArticleComments (req, res, next) {
     })
 }
 
-function addCommentById (req, res, next) {
+function addCommentById (req, res, next, commentText, creator) {
     Comments.update({
-        body: 'new comment',
+        body: commentText,
         belongs_to: req.params.article_id,
-        created_by: 'me',
+        created_by: creator,
         votes: 0,
         created_at: Date.now()
     })
