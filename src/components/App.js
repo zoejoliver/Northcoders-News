@@ -5,6 +5,7 @@ import NoMatch from './NoMatch';
 import ArticleList from './ArticleList';
 import ArticleItem from './ArticleItem';
 import Comments from './Comments';
+import NavBar from './NavBar';
 
 class App extends React.Component {
   constructor(props) {
@@ -15,9 +16,10 @@ class App extends React.Component {
       <BrowserRouter>
         <section>
           <div>
+            <NavBar/>
             <Switch>
               <Route exact path='/' component= {Homepage}/>
-              <Route path='/topics/:topic/articles' component= {ArticleList}/>
+              <Route exact path='/:topic' component= {ArticleList}/>
               <Route exact path='/articles' component= {ArticleList}/>
               <Route exact path='/articles/:article_id' component= {ArticleItem}/>
               <Route path='/articles/:article_id/comments' component= {Comments}/>
