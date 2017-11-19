@@ -4,11 +4,8 @@ function addCommentVote (req, res, next) {
     const upOrDown = req.body.input;
     const vote = updateVoteCount(upOrDown);
     Comments.findOneAndUpdate({_id: req.params.comment_id}, { $inc: { votes: vote } }, { new: true })
-    .then(() => {
-        Comments.find({})
-        .then((data) => {
-            res.send(data);
-        })
+    .then((comment) => {
+        res.send(comment);
     })
     .catch((err) => {
         if (err.name === 'CastError')return next({err, type: 404})
