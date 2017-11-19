@@ -37,8 +37,27 @@ export const postCommentRequest = () => ({
   type: types.POST_COMMENTS_REQUEST
 });
 
+export const postCommentSuccess = (data) => ({
+  type: types.POST_COMMENTS_SUCCESS,
+  payload: data
+});
+
 export const postCommentFailure = (error) => ({
   type: types.POST_COMMENTS_FAILURE,
+  payload: error
+});
+
+export const voteCommentRequest = () => ({
+  type: types.VOTE_COMMENTS_REQUEST
+});
+
+export const voteCommentSuccess = (data) => ({
+  type: types.VOTE_COMMENTS_SUCCESS,
+  payload: action.payload
+});
+
+export const voteCommentFailure = (error) => ({
+  type: types.VOTE_COMMENTS_FAILURE,
   payload: error
 });
 
@@ -117,28 +136,30 @@ export const fetchComments = (id) => {
   };
 };
 
-export const fetchTopics = () => {
+export const addComment = (id, comment) => {
   return (dispatch) => {
-    dispatch(fetchCommentRequest);
-    return axios.get(`${API_URL}/topics`)
+    dispatch(postCommentRequest);
+    return axios.post(`${API_URL}/articles/${id}/comments`, {'comment': comment})
       .then((res) => {
-        dispatch(fetchCommentSuccess(res.data));
+        console.log('comment added');
+        dispatch(postCommentSuccess(res.data));
       })
       .catch((error) => {
-        dispatch(fetchCommentFailure(error.message));
+        dispatch(postCommentFailure(error.message));
       });
   };
 };
 
-export const addComment = (id, comment) => {
+export const changeVote = (vote, id) => {
   return (dispatch) => {
-    dispatch(postCommentRequest(comment));
-    return axios.post(`${API_URL}/articles/${id}/comments`, {'comment': comment})
-      .then(() => {
-        dispatch(fetchComments(id));
+    dispatch(voteCommentRequest);
+    return axios.put(`${API_URL}/comments/${id}`, {'input': vote})
+      .then((res) => {
+        console.log('vote added');
+        dispatch(voteCommentSuccess(res.data));
       })
       .catch((error) => {
-        dispatch(postCommentFailure(error.message));
+        dispatch(voteCommentFailure(error.message));
       });
   };
 };

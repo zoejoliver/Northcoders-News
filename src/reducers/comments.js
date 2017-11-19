@@ -32,7 +32,31 @@ export default (prevState = getInitialState(), action) => {
       data: [],
       error: null
     });
+  case types.POST_COMMENTS_SUCCESS:
+    return Object.assign({}, prevState, {
+      loading: false,
+      data: action.payload,
+      error: null
+    });
   case types.POST_COMMENTS_FAILURE:
+    return Object.assign({}, prevState, {
+      loading: false,
+      data: [],
+      error: action.payload
+    });
+  case types.VOTE_COMMENTS_REQUEST:
+    return Object.assign({}, prevState, {
+      loading: true,
+      data: [],
+      error: null
+    });
+  case types.VOTE_COMMENTS_SUCCESS:
+    return Object.assign({}, prevState, {
+      loading: false,
+      data: action.payload,
+      error: null
+    });
+  case types.VOTE_COMMENTS_FAILURE:
     return Object.assign({}, prevState, {
       loading: false,
       data: [],
