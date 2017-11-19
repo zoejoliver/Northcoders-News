@@ -40,13 +40,14 @@ function getArticleComments (req, res, next) {
 }
 
 function addCommentById (req, res, next) {
-    Comments.update({
+    let newComment = {
         body: req.body.comment,
         belongs_to: req.params.article_id,
         created_by: 'northcoder',
         votes: 0,
         created_at: Date.now()
-    })
+    }
+    Comments.create([newComment])
     .then(() => {
         return Comments.find({})
         .then((comments) => {

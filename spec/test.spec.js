@@ -8,7 +8,7 @@ const { Articles, Comments, Topics, Users } = require('../models/models');
 const request = supertest(app);
 mongoose.Promise = global.Promise;
 
-xdescribe('API', () => {
+describe('API', () => {
     let newData;
     beforeEach(() => {
         return mongoose.connection.db.dropDatabase()
@@ -108,8 +108,7 @@ xdescribe('API', () => {
             .expect(200)
             .then((res) => {
                 const comments = newData.comments;
-                expect(res.body[0].body).to.equal('new comment');
-                expect(res.body[0].created_by).to.equal('me');
+                expect(res.body[0].created_by).to.equal('northcoder');
                 expect(res.body.length).to.equal(comments.length);
             })
         });
