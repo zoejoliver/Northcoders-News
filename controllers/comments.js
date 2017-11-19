@@ -1,7 +1,7 @@
 const {Comments} = require('../models/models');
 
 function addCommentVote (req, res, next) {
-    const upOrDown = req.query.vote;
+    const upOrDown = req.body.input;
     const vote = updateVoteCount(upOrDown);
     Comments.findOneAndUpdate({_id: req.params.comment_id}, { $inc: { votes: vote } }, { new: true })
     .then((comment) => {
