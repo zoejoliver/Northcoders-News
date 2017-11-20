@@ -56,14 +56,8 @@ class ArticleList extends React.Component {
                     <div className='col-md-4 votes'>
                       <img className='heart' src='https://d30y9cdsu7xlg0.cloudfront.net/png/25848-200.png' alt='votes' />
                       <p className='col-md-4'>{article.votes}</p>
-                      <a id={article._id} onClick={this.voteClickHandler} value='up'> + </a>
-                      <a id={article._id} onClick={this.voteClickHandler} value='down'> - </a>
                     </div> 
                   </div>
-                  
-                  
-                    
-                   
                 </div>
               );
             })}

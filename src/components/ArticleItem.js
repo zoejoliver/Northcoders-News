@@ -2,17 +2,21 @@ import React from 'react';
 import {NavLink} from 'react-router-dom';
 import {fetchArticleById, changeVote} from '../actions';
 import {connect} from 'react-redux';
- 
+import Comments from './Comments';
+
 class ArticleItem extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      commentFlag: false
+    };
     this.voteClickHandler = this.voteClickHandler.bind(this);
+    this.showComments = this.showComments.bind(this);
   }
   componentDidMount() {
     const id = this.props.match.params.article_id;
     this.props.fetchArticleById(id);
   }
-  
 
   render () {
     return (
@@ -24,14 +28,22 @@ class ArticleItem extends React.Component {
         </div>
         <div className='article-comments row'>
           <div className='col-md-6 votes'>
-            <a><img id={this.props.articles._id} onClick={this.voteClickHandler} value='up' className='article-heart-up' src='https://d30y9cdsu7xlg0.cloudfront.net/png/35608-200.png' alt='votes' /></a>
-            <a><img id={this.props.articles._id} onClick={this.voteClickHandler} value='down' className='article-heart-down' src='https://d30y9cdsu7xlg0.cloudfront.net/png/35609-200.png' alt='votes' /></a>
+            <input type="image" src="https://d30y9cdsu7xlg0.cloudfront.net/png/35608-200.png" name="up" onClick={this.voteClickHandler} className="btTxt submit" id={this.props.articles._id} />
+            <input type="image" src="https://d30y9cdsu7xlg0.cloudfront.net/png/35609-200.png" name="down" onClick={this.voteClickHandler} className="btTxt submit" id={this.props.articles._id} />
             <p>{this.props.articles.votes}</p>
-            
           </div>
           <div className='col-md-6 comments'>
-            <p className='comment-p'><NavLink to={`/articles/${this.props.articles._id}/comments`}>{this.props.articles.comments} comments</NavLink></p>
+            <a className='comment-p' onClick={this.showComments}>{this.props.articles.comments} comments</a>      
           </div>
+        </div>
+        <div className='comment-component'>
+          {(() => {
+            if (this.state.commentFlag) {
+              return (
+                <Comments article_id={this.props.match.params.article_id}/>
+              );
+            }
+          })()}
         </div>
       </div>
     );
@@ -40,8 +52,14 @@ class ArticleItem extends React.Component {
     e.preventDefault();
     const mode = 'article';
     const id = e.target.id;
-    const input = e.target.value;
+    const input = e.target.name;
     this.props.changeVote(input, id, mode);
+  }
+
+  showComments() {
+    this.setState({
+      commentFlag: true
+    });
   }
 }
 
