@@ -1,0 +1,112 @@
+body {
+    background-color: rgb(25, 174, 152);
+    color: #fff;
+    text-align: center;
+}
+
+.navbar {
+    background-color: lightgrey;
+    border-bottom: rgb(124, 152, 139) solid 3px;
+}
+.nav-title {
+    color: rgb(23, 23, 106);
+    text-decoration: none;
+    font-size: 1.3em;
+}
+.nav-title:hover {
+    color: rgb(50, 72, 196);
+    text-decoration: none;
+}
+.nav-title:link {
+    color: rgb(50, 72, 196);
+    text-decoration: none;
+}
+
+.navbar-left {
+    padding-bottom: 10px;
+}
+
+.navbar-right {
+    padding: 18px 10px 10px 10px;
+    font-size: 1.5em;
+}
+
+.articles {
+    color: #000;
+    background-color: rgba(229, 250, 237, 0.851);
+    border-radius: 20px;
+    border: 10px rgb(25, 174, 152) solid; 
+    font-size: 1em;
+    min-height: 180px;
+}
+
+h4 {
+    font-size: 1.5em;
+    
+}
+.article-details p {
+    font-size: 1.2em;
+    color: rgb(46, 46, 46);
+}
+
+img {
+    width: 50%;
+}
+
+.heart {
+    width: 25%;
+}
+
+a {
+    color: rgb(22, 31, 30);
+}
+a:hover {
+    color: rgb(143, 0, 122);
+    text-decoration: none;
+}
+a:active {
+    color: grey;
+    text-decoration: none;
+}
+
+.article-item {
+    background-color: rgba(255, 255, 255, 0.509); 
+    color: black;
+    border: solid white 5px;
+    border-radius: 20px;
+    padding: 20px 60px;
+    font-size: 1.3em;
+    text-align: justify;
+    margin: 20px;
+}
+
+.article-comments {
+    background-color: rgba(255, 255, 255, 0.509); 
+    color: black;
+    border: solid white 5px;
+    border-radius: 20px;
+    padding: 20px 60px;
+    font-size: 1.3em;
+    margin: 20px;
+}
+
+.article-comments .votes{
+    float: left;
+}
+.article-comments .votes a:hover{
+    width: 100px;
+}
+
+.article-comments .comments{
+    float: right;
+}
+.article-title {
+    font-size: 1.5em;
+}
+.article-author {
+    font-style: italic;
+}
+.article-heart {
+    width: 50px;
+}
+

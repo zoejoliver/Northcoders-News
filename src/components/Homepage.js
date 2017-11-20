@@ -13,23 +13,50 @@ export class Homepage extends React.Component {
   }
   render () {
     return (
-      <div>
+      <div className='main container-fluid'>
         <div className='pop-articles'>
           <h2>Most Popular Stories</h2>
-          {this.props.articles.map((article, i) => {
-            const topic = article.belongs_to;
-            while (i < 10) {
-              return (
-                <div key={article.title}>
-                  <p><NavLink to={`/articles/${article._id}`}>{article.title}</NavLink></p>
-                  <p><NavLink to={`/${topic}`}>{topic}</NavLink></p>
-                  <p>{article.votes}</p>
-                  <p><NavLink to={`/articles/${article._id}/comments`}>{article.comments}</NavLink></p>
-                </div>
-              );
+          <div className='row'>
+            {this.props.articles.map((article, i) => {
+              const topic = article.belongs_to;
+              const title = article.title.split(' ').map((word) => {
+                return word[0].toUpperCase() + word.slice(1).toLowerCase();
+              }).join(' ');
+              
+              let topicImg;
+              if (topic === 'coding') topicImg = 'https://d30y9cdsu7xlg0.cloudfront.net/png/63341-200.png';
+              else if (topic === 'cooking') topicImg = 'https://eastmanscorner.com/2016site/wp-content/uploads/2015/01/cooking-icon.png';
+              else if (topic === 'football') topicImg = 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Soccerball_mark.svg/535px-Soccerball_mark.svg.png';
+              while (i < 12) {
+                return (
+                  <div key={article.title} className='col-xs-12 col-md-4 articles '>
+                    <h4><NavLink to={`/articles/${article._id}`}>{title}<br/></NavLink></h4>
+                    {(() => {
+                      if (article.title.length < 38) {
+                        return (
+                          <br/>  
+                        );
+                      }
+                    })()}
+                    <div className='row article-details'>
+                      <div className='col-md-4 topic-pic'>
+                        <p><NavLink to={`/${topic}`}><img src={topicImg} alt='topic-img' /></NavLink></p>
+                      </div>
+                      <div className='col-md-4 comments'>
+                        <p className='col-md-4'><NavLink to={`/articles/${article._id}/comments`}>{article.comments}<br/>comments</NavLink></p>
+                      </div>
+                      <div className='col-md-4 votes'>
+                        <img className='heart' src='https://d30y9cdsu7xlg0.cloudfront.net/png/25848-200.png' alt='votes' />
+                        <p className='col-md-4'>{article.votes}</p>
+                      </div> 
+                    </div>
+                  </div>
+                );
+              }
             }
-          }
-          )}
+          
+            )}
+          </div>
         </div>
       </div>
     );

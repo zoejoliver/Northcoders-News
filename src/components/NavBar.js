@@ -8,7 +8,7 @@ class NavBar extends React.Component {
         <div className='container'>
           <div className="navbar-left">
             <ul className='nav navbar-nav'>
-              <li><h2><NavLink to={'/'} data-toggle="collapse" data-target=".navbar-collapse.in">Northcoders News</NavLink></h2></li>
+              <li><h2><NavLink to={'/'} className='nav-title'>Northcoders News</NavLink></h2></li>
             </ul>
           </div>
           <div className="navbar-right">

@@ -53,7 +53,7 @@ export const voteCommentRequest = () => ({
 
 export const voteCommentSuccess = (data) => ({
   type: types.VOTE_COMMENTS_SUCCESS,
-  payload: action.payload
+  payload: data
 });
 
 export const voteCommentFailure = (error) => ({
@@ -150,10 +150,12 @@ export const addComment = (id, comment) => {
   };
 };
 
-export const changeVote = (vote, id) => {
+export const changeVote = (vote, id, item) => {
+  let mode = 'articles';
+  if (item === 'comment') mode = 'comments';
   return (dispatch) => {
     dispatch(voteCommentRequest);
-    return axios.put(`${API_URL}/comments/${id}`, {'input': vote})
+    return axios.put(`${API_URL}/${mode}/${id}`, {'input': vote})
       .then((res) => {
         console.log('vote added');
         dispatch(voteCommentSuccess(res.data));

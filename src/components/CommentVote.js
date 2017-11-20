@@ -44,9 +44,10 @@ class CommentVote extends React.Component {
 
   voteClickHandler(e) {
     e.preventDefault();
+    const mode = 'comment';
     const id = e.target.id;
     const input = e.target.value;
-    this.props.changeVote(input, id);
+    this.props.changeVote(input, id, mode);
   }
   changeHandler(e) {
     e.preventDefault();

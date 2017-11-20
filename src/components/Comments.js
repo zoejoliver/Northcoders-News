@@ -17,7 +17,7 @@ class Comments extends React.Component {
   
   render () {
     return (
-      <div>
+      <div className='main container-fluid'>
         <h1>Comments </h1>  
         <CommentVote comments={this.props.comments} article_id={this.props.match.params.article_id}/>
       </div>
