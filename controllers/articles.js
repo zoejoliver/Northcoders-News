@@ -60,7 +60,7 @@ function addCommentById (req, res, next) {
 }
 
 function addArticleVote (req, res, next) {
-    const upOrDown = req.body.input;
+    const upOrDown = req.query.vote;
     const vote = updateVoteCount(upOrDown);
     Articles.findOneAndUpdate({_id:req.params.article_id}, { $inc: { votes: vote } }, { new: true })
     .then((article) => {
