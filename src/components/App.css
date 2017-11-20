@@ -53,10 +53,6 @@ img {
     width: 50%;
 }
 
-.heart {
-    width: 25%;
-}
-
 a {
     color: rgb(22, 31, 30);
 }
@@ -93,9 +89,6 @@ a:active {
 .article-comments .votes{
     float: left;
 }
-.article-comments .votes a:hover{
-    width: 100px;
-}
 
 .article-comments .comments{
     float: right;
@@ -106,7 +99,34 @@ a:active {
 .article-author {
     font-style: italic;
 }
-.article-heart {
+
+.votes input {
     width: 50px;
 }
+.comment-bod {
+    font-size: 1em;
+    text-align: justify;
+}
+.comment-item {
+    background-color: rgba(255, 255, 255, 0.509); 
+    color: black;
+    border: solid white 5px;
+    border-radius: 20px;
+    padding: 20px 60px;
+    font-size: 1.3em;
+    margin: 20px;
+}
 
+.comment-author {
+    text-align: left;
+    font-style: italic;
+}
+.comment-component {
+    background-color: rgba(255, 255, 255, 0.509); 
+    color: black;
+    border: solid white 5px;
+    border-radius: 20px;
+    padding: 20px 60px;
+    font-size: 1.3em;
+    margin: 20px;
+}
