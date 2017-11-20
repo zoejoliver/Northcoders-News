@@ -51,11 +51,16 @@ export default (prevState = getInitialState(), action) => {
       error: null
     });
   case types.VOTE_COMMENTS_SUCCESS:
-    return Object.assign({}, prevState, {
-      loading: false,
-      data: action.payload,
-      error: null
+    const newState = Object.assign({}, prevState);
+    const newData = newState.data.map((obj) => {
+      if (obj._id === action.payload._id) {
+        obj = action.payload;
+        return obj;
+      }
+      return obj;
     });
+    newState.data = newData;
+    return newState;
   case types.VOTE_COMMENTS_FAILURE:
     return Object.assign({}, prevState, {
       loading: false,

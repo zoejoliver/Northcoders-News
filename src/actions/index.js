@@ -61,6 +61,20 @@ export const voteCommentFailure = (error) => ({
   payload: error
 });
 
+export const voteArticleRequest = () => ({
+  type: types.VOTE_ARTICLES_REQUEST
+});
+
+export const voteArticleSuccess = (data) => ({
+  type: types.VOTE_ARTICLES_SUCCESS,
+  payload: data
+});
+
+export const voteArticleFailure = (error) => ({
+  type: types.VOTE_ARTICLES_FAILURE,
+  payload: error
+});
+
 export default () => {
   return (dispatch) => {
     dispatch(fetchArticleRequest);
@@ -150,18 +164,34 @@ export const addComment = (id, comment) => {
   };
 };
 
-export const changeVote = (vote, id, item) => {
-  let mode = 'articles';
-  if (item === 'comment') mode = 'comments';
-  return (dispatch) => {
-    dispatch(voteCommentRequest);
-    return axios.put(`${API_URL}/${mode}/${id}`, {'input': vote})
-      .then((res) => {
-        console.log('vote added');
-        dispatch(voteCommentSuccess(res.data));
-      })
-      .catch((error) => {
-        dispatch(voteCommentFailure(error.message));
-      });
-  };
+export const changeVote = (input, id, item) => {
+  let mode;
+  if (item === 'comment') {
+    mode = 'comments';
+    return (dispatch) => {
+      dispatch(voteCommentRequest);
+      return axios.put(`${API_URL}/${mode}/${id}?vote=${input}`)
+        .then((res) => {
+          console.log('vote added');
+          dispatch(voteCommentSuccess(res.data));
+        })
+        .catch((error) => {
+          dispatch(voteCommentFailure(error.message));
+        });
+    };
+  }
+  if (item === 'article') {
+    mode = 'articles';
+    return (dispatch) => {
+      dispatch(voteArticleRequest);
+      return axios.put(`${API_URL}/${mode}/${id}?vote=${input}`)
+        .then((res) => {
+          console.log('vote added');
+          dispatch(voteArticleSuccess(res.data));
+        })
+        .catch((error) => {
+          dispatch(voteArticleFailure(error.message));
+        });
+    };
+  }  
 };
