@@ -50,9 +50,12 @@ h4 {
 }
 
 img {
-    width: 50%;
+    width: 4em;
 }
 
+.heart {
+    width: 2em;
+}
 a {
     color: rgb(22, 31, 30);
 }
@@ -101,8 +104,19 @@ a:active {
 }
 
 .votes input {
-    width: 50px;
+    width: 3em;
 }
+.votes {
+    align-items: left;
+}
+.votes-article-item input{
+ width: 3em;
+}
+
+.votes-article-item p{
+    padding-left: 20px;
+}
+
 .comment-bod {
     font-size: 1em;
     text-align: justify;
@@ -126,7 +140,29 @@ a:active {
     color: black;
     border: solid white 5px;
     border-radius: 20px;
-    padding: 20px 60px;
+    padding: 20px 10px;
+    font-size: 1em;
+    margin: 20px;
+}
+.comment-form {
+    background-color: rgba(255, 255, 255, 0.509); 
+    color: black;
+    border: solid white 5px;
+    border-radius: 20px;
+    padding: 20px 10px;
     font-size: 1.3em;
     margin: 20px;
+}
+
+.comment-form .add-comment-form {
+    width: 95%;
+    border-radius: 10px;
+    height: 3em;
+    margin: 2.5% 1.5%;
+    padding: 10px;
+}
+.comment-form .submit-form {
+    width: 10%;
+    border-radius: 10px;
+    margin-left: 85%
 }

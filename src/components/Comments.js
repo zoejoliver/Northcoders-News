@@ -34,7 +34,7 @@ class Comments extends React.Component {
                 <p className='comment-bod'>{comment.body}</p>
                 <p className='comment-author'>By {comment.created_by}</p>
                 <div className='votes'>
-                  <p>{comment.votes}</p>  
+                  <p className='vote-num'>{comment.votes} votes</p>  
                   <input type="image" src="https://d30y9cdsu7xlg0.cloudfront.net/png/35608-200.png" name="up" onClick={this.voteClickHandler} className="btTxt submit" id={comment._id} />
                   <input type="image" src="https://d30y9cdsu7xlg0.cloudfront.net/png/35609-200.png" name="down" onClick={this.voteClickHandler} className="btTxt submit" id={comment._id} />
                 </div>
@@ -43,9 +43,9 @@ class Comments extends React.Component {
           })}
           <div className = "comment-form">
             <form>
-              <input onChange={this.changeHandler} type='text' placeholder="Type your comment here..."></input>
+              <input className='add-comment-form' onChange={this.changeHandler} type='text' placeholder="Type your comment here..."></input>
               <br></br>
-              <input onClick={this.submitHandler} type='submit' value="Submit"></input>
+              <input className='submit-form' onClick={this.submitHandler} type='submit' value="Submit"></input>
             </form>
           </div>
         </div>
