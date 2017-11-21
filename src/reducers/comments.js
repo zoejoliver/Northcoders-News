@@ -6,6 +6,10 @@ export const getInitialState = () => ({
   error: null
 });
 
+let newState;
+let newData;
+let index;
+
 export default (prevState = getInitialState(), action) => {
   switch (action.type) {
   case types.FETCH_COMMENTS_REQUEST:
@@ -51,8 +55,8 @@ export default (prevState = getInitialState(), action) => {
       error: null
     });
   case types.VOTE_COMMENTS_SUCCESS:
-    const newState = Object.assign({}, prevState);
-    const newData = newState.data.map((obj) => {
+    newState = Object.assign({}, prevState);
+    newData = newState.data.map((obj) => {
       if (obj._id === action.payload._id) {
         obj = action.payload;
         return obj;
@@ -74,15 +78,15 @@ export default (prevState = getInitialState(), action) => {
       error: null
     });
   case types.REMOVE_COMMENTS_SUCCESS:
-    const nuState = Object.assign({}, prevState);
-    const index = nuState.data.map((obj, i) => {
+    newState = Object.assign({}, prevState);
+    index = newState.data.map((obj, i) => {
       if (obj._id === action.payload._id) {
         return i;
       }
     });
-    const nuData = nuState.data.slice(0, i).concat(nuState.data.slice(i+1));
-    nuState.data = nuData;
-    return nuState;
+    newData = newState.data.slice(0, index).concat(newState.data.slice(index + 1));
+    newState.data = newData;
+    return newState;
   case types.REMOVE_COMMENTS_FAILURE:
     return Object.assign({}, prevState, {
       loading: false,

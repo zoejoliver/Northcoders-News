@@ -2,6 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {getMostPopular} from '../actions';
 import {NavLink} from 'react-router-dom';
+import PT from 'prop-types';
 
 export class Homepage extends React.Component {
   constructor(props) {
@@ -72,5 +73,12 @@ const mapDispatchToProps = dispatch => ({
     dispatch(getMostPopular());
   }
 });
+
+Homepage.propTypes = {
+  articles: PT.array.isRequired,
+  loading: PT.bool.isRequired,
+  error: PT.any,
+  getMostPopular: PT.func.isRequired
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Homepage);

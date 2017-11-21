@@ -1,6 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {fetchComments, addComment, changeVote, removeComment} from '../actions';
+import PT from 'prop-types';
 
 
 class Comments extends React.Component {
@@ -41,8 +42,8 @@ class Comments extends React.Component {
                 </div>
                 <div className='votes'>
                   <p className='vote-num'>{comment.votes} votes</p>  
-                  <input type="image" src="https://d30y9cdsu7xlg0.cloudfront.net/png/35608-200.png" name="up" onClick={this.voteClickHandler} className="btTxt submit" id={comment._id} />
-                  <input type="image" src="https://d30y9cdsu7xlg0.cloudfront.net/png/35609-200.png" name="down" onClick={this.voteClickHandler} className="btTxt submit" id={comment._id} />
+                  <input type="image" src="https://d30y9cdsu7xlg0.cloudfront.net/png/35608-200.png" name="up" onClick={this.voteClickHandler} className="vote-btn" id={comment._id} />
+                  <input type="image" src="https://d30y9cdsu7xlg0.cloudfront.net/png/35609-200.png" name="down" onClick={this.voteClickHandler} className="vote-btn" id={comment._id} />
                 </div>
               </div>
             );
@@ -105,5 +106,16 @@ const mapDispatchToProps = dispatch => ({
     dispatch(removeComment(id));
   }
 });
+
+Comments.propTypes = {
+  comments: PT.array.isRequired,
+  loading: PT.bool.isRequired,
+  error: PT.any,
+  fetchComments: PT.func.isRequired,
+  changeVote: PT.func.isRequired,
+  addComment: PT.func.isRequired,
+  removeComment: PT.func.isRequired,
+  article_id: PT.string.isRequired
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Comments);

@@ -2,6 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {fetchArticlesByTopic, changeVote} from '../actions';
 import {NavLink} from 'react-router-dom';
+import PT from 'prop-types';
 
 class ArticleList extends React.Component {
   constructor(props) {
@@ -87,5 +88,14 @@ const mapDispatchToProps = dispatch => ({
     dispatch(changeVote(input, id, mode));
   }
 });
+
+ArticleList.propTypes = {
+  articles: PT.array.isRequired,
+  loading: PT.bool.isRequired,
+  error: PT.any,
+  fetchArticlesByTopic: PT.func.isRequired,
+  changeVote: PT.func.isRequired,
+  match: PT.any.isRequired
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(ArticleList);

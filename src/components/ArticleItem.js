@@ -1,8 +1,8 @@
 import React from 'react';
-import {NavLink} from 'react-router-dom';
 import {fetchArticleById, changeVote} from '../actions';
 import {connect} from 'react-redux';
 import Comments from './Comments';
+import PT from 'prop-types';
 
 class ArticleItem extends React.Component {
   constructor(props) {
@@ -19,14 +19,20 @@ class ArticleItem extends React.Component {
   }
 
   render () {
+    const title = this.props.articles.title.split(' ').map((word) => {
+      if (word.toLowerCase().match(/[aeiou]/)) { 
+        return word[0].toUpperCase() + word.slice(1).toLowerCase();
+      }
+      else return word.toUpperCase();
+    }).join(' ');
     return (
       <div className='main container-fluid'>
         <div className='article-item'>
           <div className='art-title row'>
-            <p className ='col-xs-12 col-md-10 article-title'>{this.props.articles.title}</p>
+            <p className ='col-xs-12 col-md-10 article-title'>{title}</p>
             <div className='col-xs-12 col-md-2 votes-article-item'>
-              <input type="image" src="https://d30y9cdsu7xlg0.cloudfront.net/png/35608-200.png" name="up" onClick={this.voteClickHandler} className="btTxt submit" id={this.props.articles._id} />
-              <input type="image" src="https://d30y9cdsu7xlg0.cloudfront.net/png/35609-200.png" name="down" onClick={this.voteClickHandler} className="btTxt submit" id={this.props.articles._id} />
+              <input type="image" src="https://d30y9cdsu7xlg0.cloudfront.net/png/35608-200.png" name="up" onClick={this.voteClickHandler} className="vote-btn" id={this.props.articles._id} />
+              <input type="image" src="https://d30y9cdsu7xlg0.cloudfront.net/png/35609-200.png" name="down" onClick={this.voteClickHandler} className="vote-btn" id={this.props.articles._id} />
               <p className='vote-num'>{this.props.articles.votes} votes</p>
             </div>
           </div>
@@ -77,5 +83,14 @@ const mapDispatchToProps = dispatch => ({
     dispatch(changeVote(input, id, mode));
   }
 });
+
+ArticleItem.propTypes = {
+  articles: PT.array.isRequired,
+  loading: PT.bool.isRequired,
+  error: PT.any,
+  fetchArticleById: PT.func.isRequired,
+  changeVote: PT.func.isRequired,
+  match: PT.any.isRequired
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(ArticleItem);

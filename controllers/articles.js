@@ -40,6 +40,7 @@ function getArticleComments (req, res, next) {
 }
 
 function addCommentById (req, res, next) {
+    if (req.body.comment === undefined) req.body.comment = 'new comment';
     let newComment = {
         body: req.body.comment,
         belongs_to: req.params.article_id,

@@ -167,7 +167,6 @@ export const addComment = (id, comment) => {
     dispatch(postCommentRequest);
     return axios.post(`${API_URL}/articles/${id}/comments`, {'comment': comment})
       .then((res) => {
-        console.log('comment added');
         dispatch(postCommentSuccess(res.data));
       })
       .catch((error) => {
@@ -184,7 +183,6 @@ export const changeVote = (input, id, item) => {
       dispatch(voteCommentRequest);
       return axios.put(`${API_URL}/${mode}/${id}?vote=${input}`)
         .then((res) => {
-          console.log('vote added');
           dispatch(voteCommentSuccess(res.data));
         })
         .catch((error) => {
@@ -198,7 +196,6 @@ export const changeVote = (input, id, item) => {
       dispatch(voteArticleRequest);
       return axios.put(`${API_URL}/${mode}/${id}?vote=${input}`)
         .then((res) => {
-          console.log('vote added');
           dispatch(voteArticleSuccess(res.data));
         })
         .catch((error) => {
@@ -213,7 +210,6 @@ export const removeComment = (id) => {
     dispatch(removeCommentRequest);
     return axios.delete(`${API_URL}/comments/${id}`)
       .then((res) => {
-        console.log('comment removed');
         dispatch(removeCommentSuccess(res.data));
       })
       .catch((error) => {

@@ -109,7 +109,7 @@ describe('API', () => {
             .then((res) => {
                 const comments = newData.comments;
                 expect(res.body[0].created_by).to.equal('northcoder');
-                expect(res.body.length).to.equal(comments.length);
+                expect(res.body.length).to.equal(comments.length + 1);
             })
         });
     });

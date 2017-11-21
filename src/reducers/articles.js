@@ -6,6 +6,9 @@ export const getInitialState = () => ({
   error: null
 });
 
+let newState;
+let newData;
+
 export default (prevState = getInitialState(), action) => {
   switch (action.type) {
   case types.FETCH_ARTICLES_REQUEST:
@@ -33,8 +36,8 @@ export default (prevState = getInitialState(), action) => {
       error: null
     });
   case types.VOTE_ARTICLES_SUCCESS:
-    const newState = Object.assign({}, prevState);
-    const newData = newState.data.map((obj) => {
+    newState = Object.assign({}, prevState);
+    newData = newState.data.map((obj) => {
       if (obj._id === action.payload._id) {
         obj = action.payload;
         return obj;

@@ -4,7 +4,6 @@ import Homepage from './Homepage';
 import NoMatch from './NoMatch';
 import ArticleList from './ArticleList';
 import ArticleItem from './ArticleItem';
-import Comments from './Comments';
 import NavBar from './NavBar';
 import './App.css';
 

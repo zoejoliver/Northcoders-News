@@ -7,6 +7,7 @@ body {
 .navbar {
     background-color: lightgrey;
     border-bottom: rgb(124, 152, 139) solid 3px;
+    margin-bottom: 0;
 }
 .nav-title {
     color: rgb(23, 23, 106);
@@ -47,6 +48,7 @@ h4 {
 h4 a {
     text-align: center;
 }
+
 .article-title-box {
     min-height: 100px; 
     display: flex;
@@ -64,7 +66,9 @@ h4 a {
 img {
     width: 4em;
 }
-
+.art-title {
+    min-height: 120px;
+}
 .heart {
     width: 2em;
 }
@@ -108,14 +112,16 @@ a:active {
     font-style: italic;
 }
 
-.votes input {
+.votes {
+    height: 100px;
+    margin-top: -10px;
+}
+.vote-btn {
     width: 3em;
 }
-.votes {
-    align-items: left;
-}
-.votes-article-item input{
- width: 3em;
+
+.vote-btn:hover {
+    width: 3.2em;
 }
 
 .votes-article-item p{
@@ -132,10 +138,9 @@ a:active {
     color: black;
     border: solid white 5px;
     border-radius: 20px;
-    padding: 20px 30px;
+    padding: 20px 30px 0 30px;
     font-size: 1em;
-    margin-top: 10px;
-    
+    margin-top: 10px;   
 }
 .comment-p {
     background: none;
@@ -158,7 +163,7 @@ button {
     border: solid white 5px;
     border-radius: 20px;
     padding: 20px 10px;
-    font-size: 1em;
+    font-size: 1.2em;
     margin: 20px;
 }
 .comment-form {
@@ -167,13 +172,14 @@ button {
     border: solid white 5px;
     border-radius: 20px;
     padding: 10px 10px 0 10px;
+    margin-top: 10px;
 }
 
 .comment-form .add-comment-form {
     width: 95%;
     border-radius: 10px;
     height: 3em;
-    margin: 2.5% 1.5% 0 1.5%;
+    margin-top: 1%;
     padding: 10px;
 }
 .comment-form .submit-form {
@@ -203,4 +209,7 @@ button {
 }
 input {
     outline: none;
+}
+.vote-num {
+    margin-top: 5px;
 }
