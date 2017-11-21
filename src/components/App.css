@@ -37,18 +37,30 @@ body {
     border-radius: 20px;
     border: 10px rgb(25, 174, 152) solid; 
     font-size: 1em;
-    min-height: 180px;
 }
 
 h4 {
     font-size: 1.5em;
+    margin: 10px;
+    width: 100%;
+}
+h4 a {
+    text-align: center;
+}
+.article-title-box {
+    min-height: 100px; 
+    display: flex;
+    align-items: center;
     
 }
 .article-details p {
     font-size: 1.2em;
-    color: rgb(46, 46, 46);
+    color: rgb(46, 46, 46); 
+    
 }
-
+.article-details {
+    min-height: 80px; 
+}
 img {
     width: 4em;
 }
@@ -89,13 +101,6 @@ a:active {
     margin: 20px;
 }
 
-.article-comments .votes{
-    float: left;
-}
-
-.article-comments .comments{
-    float: right;
-}
 .article-title {
     font-size: 1.5em;
 }
@@ -162,7 +167,31 @@ a:active {
     padding: 10px;
 }
 .comment-form .submit-form {
-    width: 10%;
     border-radius: 10px;
-    margin-left: 85%
+    float: right;
+    background-color: black;
+    border: none;
+    color: rgb(209, 250, 240);
+    padding: 5px, 10px;
+    margin-top: -13px;
+    margin-right: 17px;
 }
+.comment-rmv-btn {
+    background-color: black;
+    border: none;
+    color: rgb(209, 250, 240);
+    float: right;
+    padding: 5px, 10px;
+}
+.comment-date {
+    float: left;
+}
+
+.comment-body {
+    padding-top: 10px;
+}
+
+.topic-pic a:hover img{
+    width: 4.5em;
+}
+

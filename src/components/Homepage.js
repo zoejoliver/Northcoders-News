@@ -20,7 +20,10 @@ export class Homepage extends React.Component {
             {this.props.articles.map((article, i) => {
               const topic = article.belongs_to;
               const title = article.title.split(' ').map((word) => {
-                return word[0].toUpperCase() + word.slice(1).toLowerCase();
+                if (word.toLowerCase().match(/[aeiou]/)) { 
+                  return word[0].toUpperCase() + word.slice(1).toLowerCase();
+                }
+                else return word.toUpperCase();
               }).join(' ');
               
               let topicImg;
@@ -30,24 +33,19 @@ export class Homepage extends React.Component {
               while (i < 12) {
                 return (
                   <div key={article.title} className='col-xs-12 col-md-4 articles '>
-                    <h4><NavLink to={`/articles/${article._id}`}>{title}<br/></NavLink></h4>
-                    {(() => {
-                      if (article.title.length < 38) {
-                        return (
-                          <br/>  
-                        );
-                      }
-                    })()}
+                    <div className='row article-title-box'>
+                      <h4><NavLink to={`/articles/${article._id}`}>{title}<br/></NavLink></h4>
+                    </div>
                     <div className='row article-details'>
                       <div className='col-md-4 topic-pic'>
                         <p><NavLink to={`/${topic}`}><img src={topicImg} alt='topic-img' /></NavLink></p>
                       </div>
                       <div className='col-md-4 comments'>
-                        <p className='col-md-4'><NavLink to={`/articles/${article._id}/comments`}>{article.comments}<br/>comments</NavLink></p>
+                        <p>{article.comments}<br/>comments</p>
                       </div>
                       <div className='col-md-4 votes'>
                         <img className='heart' src='https://d30y9cdsu7xlg0.cloudfront.net/png/25848-200.png' alt='votes' />
-                        <p className='col-md-4'>{article.votes}</p>
+                        <p>{article.votes}</p>
                       </div> 
                     </div>
                   </div>
