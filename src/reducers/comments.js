@@ -79,9 +79,9 @@ export default (prevState = getInitialState(), action) => {
     });
   case types.REMOVE_COMMENTS_SUCCESS:
     newState = Object.assign({}, prevState);
-    index = newState.data.map((obj, i) => {
+    newState.data.map((obj, i) => {
       if (obj._id === action.payload._id) {
-        return i;
+        index = i;
       }
     });
     newData = newState.data.slice(0, index).concat(newState.data.slice(index + 1));

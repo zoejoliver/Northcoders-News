@@ -85,7 +85,7 @@ const mapDispatchToProps = dispatch => ({
 });
 
 ArticleItem.propTypes = {
-  articles: PT.array.isRequired,
+  articles: PT.object.isRequired,
   loading: PT.bool.isRequired,
   error: PT.any,
   fetchArticleById: PT.func.isRequired,
