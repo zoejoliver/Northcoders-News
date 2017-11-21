@@ -67,6 +67,28 @@ export default (prevState = getInitialState(), action) => {
       data: [],
       error: action.payload
     });
+  case types.REMOVE_COMMENTS_REQUEST:
+    return Object.assign({}, prevState, {
+      loading: true,
+      data: [],
+      error: null
+    });
+  case types.REMOVE_COMMENTS_SUCCESS:
+    const nuState = Object.assign({}, prevState);
+    const index = nuState.data.map((obj, i) => {
+      if (obj._id === action.payload._id) {
+        return i;
+      }
+    });
+    const nuData = nuState.data.slice(0, i).concat(nuState.data.slice(i+1));
+    nuState.data = nuData;
+    return nuState;
+  case types.REMOVE_COMMENTS_FAILURE:
+    return Object.assign({}, prevState, {
+      loading: false,
+      data: [],
+      error: action.payload
+    });
   default:
     return prevState;
   }

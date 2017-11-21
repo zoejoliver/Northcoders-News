@@ -75,6 +75,18 @@ export const voteArticleFailure = (error) => ({
   payload: error
 });
 
+export const removeCommentRequest = () => ({
+  type: types.REMOVE_COMMENTS_REQUEST
+});
+
+export const removeCommentSuccess = (data) => ({
+  type: types.REMOVE_COMMENTS_SUCCESS,
+  payload: data
+});
+export const removeCommentFailure = (error) => ({
+  type: types.REMOVE_COMMENTS_FAILURE,
+  payload: error
+});
 export default () => {
   return (dispatch) => {
     dispatch(fetchArticleRequest);
@@ -194,4 +206,18 @@ export const changeVote = (input, id, item) => {
         });
     };
   }  
+};
+
+export const removeComment = (id) => {
+  return (dispatch) => {
+    dispatch(removeCommentRequest);
+    return axios.delete(`${API_URL}/comments/${id}`)
+      .then((res) => {
+        console.log('comment removed');
+        dispatch(removeCommentSuccess(res.data));
+      })
+      .catch((error) => {
+        dispatch(removeCommentFailure(error.message));
+      });
+  };
 };
