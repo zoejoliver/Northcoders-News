@@ -32,7 +32,7 @@ class ArticleItem extends React.Component {
           </div>
           <p className ='article-author'>By {this.props.articles.created_by}</p>
           <p>{this.props.articles.body}</p>
-          <a className='comment-p' onClick={this.showComments}>{this.props.articles.comments} comments</a>      
+          <button className='comment-p' onClick={this.showComments}>{this.props.articles.comments} comments</button>      
         </div>
         
         {(() => {

@@ -48,11 +48,9 @@ class Comments extends React.Component {
             );
           })}
           <div className = "comment-form">
-            <form>
-              <input value = {this.state.comment} className='add-comment-form' onChange={this.changeHandler} type='text' placeholder="Type your comment here..."></input>
-              <br></br>
-              <input className='submit-form' onClick={this.submitHandler} type='submit' value="Submit"></input>
-            </form>
+            <input value = {this.state.comment} className='add-comment-form' onChange={this.changeHandler} type='text' placeholder="Type your comment here..."></input>
+            <input className='submit-form' onClick={this.submitHandler} type='submit' value="Submit"></input>
+            
           </div>
         </div>
       </div>
