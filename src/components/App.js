@@ -13,7 +13,7 @@ class App extends React.Component {
   }
   render () {
     return (
-      <BrowserRouter basename='https://zoejoliver.github.io/Northcoders-News/'>
+      <BrowserRouter basename='https://zoejoliver.github.io/Northcoders-News'>
         <section>
           <div>
             <NavBar/>
