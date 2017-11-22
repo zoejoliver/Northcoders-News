@@ -43,7 +43,6 @@
     "eslint": "^4.11.0",
     "eslint-loader": "^1.9.0",
     "eslint-plugin-react": "^7.4.0",
-    "gh-pages": "^1.1.0",
     "jest": "^21.2.1",
     "mocha": "^4.0.1",
     "react-test-renderer": "^16.1.1",
@@ -58,9 +57,7 @@
     "start": "nodemon index.js",
     "dev": "webpack-dev-server",
     "watch": "webpack --watch",
-    "build": "webpack -p",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "build": "webpack -p"
   },
   "author": "",
   "license": "ISC",
