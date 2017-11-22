@@ -2,6 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {fetchComments, addComment, changeVote, removeComment} from '../actions';
 import PT from 'prop-types';
+import moment from 'moment';
 
 
 class Comments extends React.Component {
@@ -33,7 +34,7 @@ class Comments extends React.Component {
             return (
               <div key={comment.created_at} className='comment-item'>
                 <div className='row'>
-                  <p className='comment-date'>{comment.created_at}</p>
+                  <p className='comment-date'>{moment(comment.created_at).fromNow()}</p>
                   <button className='comment-rmv-btn' id={comment._id} onClick={this.removeHandler}> remove </button>
                 </div>
                 <div className='row comment-body'>
