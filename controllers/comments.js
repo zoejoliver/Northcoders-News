@@ -17,10 +17,9 @@ function addCommentVote (req, res, next) {
 }
 
 function removeComment (req, res, next) {
-    console.log(res.body.article_id)
     Comments.findByIdAndRemove(req.params.comment_id)
     .then(() => {
-        Comments.find({belongs_to: res.body.article_id})
+        Comments.find({belongs_to: req.body.article_id})
         .then((comments) => {
             
             res.send(comments);
