@@ -5,7 +5,7 @@ function addCommentVote (req, res, next) {
     const vote = updateVoteCount(upOrDown);
     Comments.findOneAndUpdate({_id: req.params.comment_id}, { $inc: { votes: vote } }, { new: true })
     .then(() => {
-        Comments.find({belongs_to: req.params.article_id})
+        Comments.find({belongs_to: req.body.article_id})
         .then((comments) => {
                 res.send(comments);
             })
