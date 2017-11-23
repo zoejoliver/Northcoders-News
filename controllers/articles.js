@@ -13,6 +13,21 @@ function getArticles (req, res, next) {
         next(err);
     })
 }
+
+function getArticleById (req, res, next) {
+    Articles.find({_id: req.params.article_id})
+    .then((article) => {
+        Promise.all(getCommentCount(article))
+        .then((commentCount) => {
+            const updatedArticles = addCommentCount(article, commentCount);
+            res.send(updatedArticles);
+        })
+    })
+    .catch((err) => {
+        next(err);
+    })
+}
+
 function getCommentCount (arr) {
     return arr.map((article) => {
         return Comments.count({belongs_to: article._id})
@@ -77,4 +92,4 @@ function updateVoteCount (vote) {
     else if (vote === 'down') return -1;
 }
 
-module.exports = {getArticles, getArticleComments, addCommentById, addArticleVote};
+module.exports = {getArticles, getArticleComments, addCommentById, addArticleVote, getArticleById};

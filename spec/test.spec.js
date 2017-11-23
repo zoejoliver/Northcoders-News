@@ -8,7 +8,7 @@ const { Articles, Comments, Topics, Users } = require('../models/models');
 const request = supertest(app);
 mongoose.Promise = global.Promise;
 
-xdescribe('API', () => {
+describe('API', () => {
     let newData;
     beforeEach(() => {
         return mongoose.connection.db.dropDatabase()
@@ -99,6 +99,16 @@ xdescribe('API', () => {
                 expect(res.body[0].comments).to.be.a('number');
             })
         });
+        it('returns correct article and status code for valid article id', () => {
+            const articleId = newData.articles[0]._id;
+            return request
+            .get(`/api/articles/${articleId}`)
+            .expect(200)
+            .then((res) => {
+                expect(res.body.length).to.equal(1);
+                expect(res.body[0]._id).to.equal(articleId.toString());
+            })
+        })
     });
     describe('POST /comment', () => {
         it('sends back new comment object with status code of 200', () => {
