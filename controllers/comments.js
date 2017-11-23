@@ -21,9 +21,9 @@ function removeComment (req, res, next) {
     .then(() => {
         Comments.find({belongs_to: req.body.article_id})
         .then((comments) => {
-                res.send(comments);
-            })
+            res.send(comments);
         })
+    })
     .catch((err) => {
         if (err.name === 'CastError') return next({type: 404, msg: 'Comment not found'});
         next(err);
