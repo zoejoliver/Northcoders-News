@@ -27,6 +27,11 @@ class Comments extends React.Component {
       return (
         <div className='main container-fluid'>  
           <div>
+            <div className = "comment-form">
+              <input value = {this.state.comment} className='add-comment-form' onChange={this.changeHandler} type='text' placeholder="Type your comment here..."></input>
+              <input className='submit-form' onClick={this.submitHandler} type='submit' value="Submit"></input>
+            
+            </div>
             {this.props.comments.map((comment) => {
               return (
                 <div key={comment.created_at} className='comment-item'>
@@ -46,11 +51,6 @@ class Comments extends React.Component {
                 </div>
               );
             })}
-            <div className = "comment-form">
-              <input value = {this.state.comment} className='add-comment-form' onChange={this.changeHandler} type='text' placeholder="Type your comment here..."></input>
-              <input className='submit-form' onClick={this.submitHandler} type='submit' value="Submit"></input>
-            
-            </div>
           </div>
         </div>
       );
