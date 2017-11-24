@@ -47,13 +47,13 @@ export default (prevState = getInitialState(), action) => {
   case types.VOTE_ARTICLES_REQUEST:
     return Object.assign({}, prevState, {
       loading: true,
-      data: [],
+      data: prevState.data,
       error: null
     });
   case types.VOTE_ARTICLES_SUCCESS:
     return Object.assign({}, prevState, {
       loading: false,
-      data: [action.payload],
+      data: action.payload,
       error: null
     });
   case types.VOTE_ARTICLES_FAILURE:

@@ -163,7 +163,12 @@ export const fetchComments = (id) => {
     dispatch(fetchCommentRequest());
     return axios.get(`${API_URL}/articles/${id}/comments`)
       .then((res) => {
-        dispatch(fetchCommentSuccess(res.data));
+        return res.data.sort((a, b) => {
+          return b.created_at - a.created_at;
+        });
+      })
+      .then((sortedComments) => {
+        dispatch(fetchCommentSuccess(sortedComments));
       })
       .catch((error) => {
         dispatch(fetchCommentFailure(error.message));
@@ -178,6 +183,8 @@ export const addComment = (id, comment) => {
       .then((res) => {
         return res.data.filter((comment) => {
           return comment.belongs_to === id; 
+        }).sort((a, b) => {
+          return b.created_at - a.created_at;
         });
       })
       .then((comments) => {
@@ -197,7 +204,12 @@ export const changeVote = (input, id, item, article_id) => {
       dispatch(voteCommentRequest());
       return axios.put(`${API_URL}/${mode}/${id}?vote=${input}`, {'article_id': article_id})
         .then((res) => {
-          dispatch(voteCommentSuccess(res.data));
+          return res.data.sort((a, b) => {
+            return b.created_at - a.created_at;
+          });
+        })
+        .then((sortedComments) => {
+          dispatch(voteCommentSuccess(sortedComments));
         })
         .catch((error) => {
           dispatch(voteCommentFailure(error.message));
@@ -225,7 +237,12 @@ export const removeComment = (id, article_id) => {
     return axios.delete(`${API_URL}/comments/${id}`, {params: {'article_id': article_id
     }})
       .then((res) => {
-        dispatch(removeCommentSuccess(res.data));
+        return res.data.sort((a, b) => {
+          return b.created_at - a.created_at;
+        });
+      })
+      .then((sortedComments) => {
+        dispatch(removeCommentSuccess(sortedComments));
       })
       .catch((error) => {
         dispatch(removeCommentFailure(error.message));
