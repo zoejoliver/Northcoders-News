@@ -46,7 +46,6 @@ function getArticleComments (req, res, next) {
     .then((comments) => {
         if(comments.length < 1) return next();
         res.send(comments);
-        
     })
     .catch((err) => {
         if (err.name === 'CastError')return next({err, type: 404, msg: 'Invalid article Id'})
@@ -80,7 +79,11 @@ function addArticleVote (req, res, next) {
     const vote = updateVoteCount(upOrDown);
     Articles.findOneAndUpdate({_id:req.params.article_id}, { $inc: { votes: vote } }, { new: true })
     .then((article) => {
-        res.send(article);    
+        Promise.all(getCommentCount(article))
+        .then((commentCount) => {
+            const updatedArticles = addCommentCount(article, commentCount);
+            res.send(updatedArticles);
+        })    
     })
     .catch((err) => {
         next(err);
