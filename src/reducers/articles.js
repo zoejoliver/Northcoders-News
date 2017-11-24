@@ -6,9 +6,6 @@ export const getInitialState = () => ({
   error: null
 });
 
-let newState;
-let newData;
-
 export default (prevState = getInitialState(), action) => {
   switch (action.type) {
   case types.FETCH_ARTICLES_REQUEST:
@@ -29,6 +26,24 @@ export default (prevState = getInitialState(), action) => {
       data: [],
       error: action.payload
     });
+  case types.FETCH_ONE_ARTICLES_REQUEST:
+    return Object.assign({}, prevState, {
+      loading: true,
+      data: [],
+      error: null
+    });
+  case types.FETCH_ONE_ARTICLES_SUCCESS:
+    return Object.assign({}, prevState, {
+      loading: false,
+      data: action.payload,
+      error: null
+    });
+  case types.FETCH_ONE_ARTICLES_FAILURE:
+    return Object.assign({}, prevState, {
+      loading: false,
+      data: [],
+      error: action.payload
+    });
   case types.VOTE_ARTICLES_REQUEST:
     return Object.assign({}, prevState, {
       loading: true,
@@ -36,17 +51,11 @@ export default (prevState = getInitialState(), action) => {
       error: null
     });
   case types.VOTE_ARTICLES_SUCCESS:
-    newState = Object.assign({}, prevState);
-    newData = newState.data.map((obj) => {
-      if (obj._id === action.payload._id) {
-        obj = action.payload;
-        return obj;
-      }
-      return obj;
+    return Object.assign({}, prevState, {
+      loading: false,
+      data: [action.payload],
+      error: null
     });
-    newState.data = newData;
-    newState.data[0].comments = prevState.data[0].comments;
-    return newState;
   case types.VOTE_ARTICLES_FAILURE:
     return Object.assign({}, prevState, {
       loading: false,

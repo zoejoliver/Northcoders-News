@@ -3,6 +3,7 @@ import {fetchArticleById, changeVote} from '../actions';
 import {connect} from 'react-redux';
 import Comments from './Comments';
 import PT from 'prop-types';
+import Loading from './Loading';
 
 class ArticleItem extends React.Component {
   constructor(props) {
@@ -19,41 +20,50 @@ class ArticleItem extends React.Component {
   }
 
   render () {
-    const title = this.props.articles.title.split(' ').map((word) => {
-      if (word.toLowerCase().match(/[aeiou]/)) { 
-        return word[0].toUpperCase() + word.slice(1).toLowerCase();
-      }
-      else return word.toUpperCase();
-    }).join(' ');
-    return (
-      <div className='main container-fluid'>
-        <div className='article-item'>
-          <div className='art-title row'>
-            <p className ='col-xs-12 col-md-10 article-title'>{title}</p>
-            <div className='col-xs-12 col-md-2 votes-article-item'>
-              <input type="image" src="https://d30y9cdsu7xlg0.cloudfront.net/png/35608-200.png" name="up" onClick={this.voteClickHandler} className="vote-btn" id={this.props.articles._id} />
-              <input type="image" src="https://d30y9cdsu7xlg0.cloudfront.net/png/35609-200.png" name="down" onClick={this.voteClickHandler} className="vote-btn" id={this.props.articles._id} />
-              <p className='vote-num'>{this.props.articles.votes} votes</p>
-            </div>
-          </div>
-          <p className ='article-author'>By {this.props.articles.created_by}</p>
-          <p>{this.props.articles.body}</p>
-          <button className='comment-p' onClick={this.showComments}>{this.props.articles.comments} comments</button>      
-        </div>
-        
-        {(() => {
-          if (this.state.commentFlag) {
-            return (
-              <div className='comment-component'>
-                <Comments article_id={this.props.match.params.article_id}/>
+ 
+    if (this.props.articles.length > 0) {
+      const title = this.props.articles[0].title.split(' ').map((word) => {
+        if (word.toLowerCase().match(/[aeiou]/)) { 
+          return word[0].toUpperCase() + word.slice(1).toLowerCase();
+        }
+        else return word.toUpperCase();
+      }).join(' ');
+      return (
+        <div className='main container-fluid'>
+          <div className='article-item'>
+            <div className='art-title row'>
+              <p className ='col-xs-12 col-md-10 article-title'>{title}</p>
+              <div className='col-xs-12 col-md-2 votes-article-item'>
+                <input type="image" src="https://d30y9cdsu7xlg0.cloudfront.net/png/35608-200.png" name="up" onClick={this.voteClickHandler} className="vote-btn" id={this.props.articles[0]._id} />
+                <input type="image" src="https://d30y9cdsu7xlg0.cloudfront.net/png/35609-200.png" name="down" onClick={this.voteClickHandler} className="vote-btn" id={this.props.articles[0]._id} />
+                <p className='vote-num'>{this.props.articles[0].votes} votes</p>
               </div>
-            );
-          }
-        })()}
+            </div>
+            <p className ='article-author'>By {this.props.articles[0].created_by}</p>
+            <p>{this.props.articles[0].body}</p>
+            <button className='comment-p' onClick={this.showComments}>{this.props.articles[0].comments} comments</button>      
+          </div>
         
-      </div>
-    );
+          {(() => {
+            if (this.state.commentFlag) {
+              return (
+                <div className='comment-component'>
+                  <Comments article_id={this.props.match.params.article_id}/>
+                </div>
+              );
+            }
+          })()}
+        </div>
+      );
+    }
+    else {
+      return (
+        <Loading />
+      );
+    }
+    
   }
+  
   voteClickHandler(e) {
     e.preventDefault();
     const mode = 'article';
@@ -70,7 +80,7 @@ class ArticleItem extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  articles: state.articles.data[0],
+  articles: state.articles.data,
   loading: state.articles.loading,
   error: state.articles.error,
 });
@@ -85,7 +95,7 @@ const mapDispatchToProps = dispatch => ({
 });
 
 ArticleItem.propTypes = {
-  articles: PT.object.isRequired,
+  articles: PT.array.isRequired,
   loading: PT.bool.isRequired,
   error: PT.any,
   fetchArticleById: PT.func.isRequired,

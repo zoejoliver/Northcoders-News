@@ -19,6 +19,20 @@ export const fetchArticleFailure = (error) => ({
   payload: error
 });
 
+export const fetchOneArticleRequest = () => ({
+  type: types.FETCH_ONE_ARTICLES_REQUEST
+});
+
+export const fetchOneArticleSuccess = (data) => ({
+  type: types.FETCH_ONE_ARTICLES_SUCCESS,
+  payload: data
+});
+
+export const fetchOneArticleFailure = (error) => ({
+  type: types.FETCH_ONE_ARTICLES_FAILURE,
+  payload: error
+});
+
 export const fetchCommentRequest = () => ({
   type: types.FETCH_COMMENTS_REQUEST
 });
@@ -89,7 +103,7 @@ export const removeCommentFailure = (error) => ({
 });
 export default () => {
   return (dispatch) => {
-    dispatch(fetchArticleRequest);
+    dispatch(fetchArticleRequest());
     return axios.get(`${API_URL}/articles`)
       .then((res) => {
         dispatch(fetchArticleSuccess(res.data));
@@ -102,7 +116,7 @@ export default () => {
 
 export const getMostPopular = () => {
   return (dispatch) => {
-    dispatch(fetchArticleRequest);
+    dispatch(fetchArticleRequest());
     return axios.get(`${API_URL}/articles`)
       .then((res) => {
         return res.data.sort((a, b) => {
@@ -120,7 +134,7 @@ export const getMostPopular = () => {
 
 export const fetchArticlesByTopic = (topic) => {
   return (dispatch) => {
-    dispatch(fetchArticleRequest);
+    dispatch(fetchArticleRequest());
     return axios.get(`${API_URL}/topics/${topic}/articles`)
       .then((res) => {
         dispatch(fetchArticleSuccess(res.data));
@@ -133,25 +147,20 @@ export const fetchArticlesByTopic = (topic) => {
 
 export const fetchArticleById = (id) => {
   return (dispatch) => {
-    dispatch(fetchArticleRequest);
-    return axios.get(`${API_URL}/articles`)
+    dispatch(fetchOneArticleRequest());
+    return axios.get(`${API_URL}/articles/${id}`)
       .then((res) => {
-        return res.data.filter((article) => {
-          return article._id === id;
-        });
-      })
-      .then((result) => {
-        dispatch(fetchArticleSuccess(result));
+        dispatch(fetchOneArticleSuccess(res.data));
       })
       .catch((error) => {
-        dispatch(fetchArticleFailure(error.message));
+        dispatch(fetchOneArticleFailure(error.message));
       });
   };
 };
 
 export const fetchComments = (id) => {
   return (dispatch) => {
-    dispatch(fetchCommentRequest);
+    dispatch(fetchCommentRequest());
     return axios.get(`${API_URL}/articles/${id}/comments`)
       .then((res) => {
         dispatch(fetchCommentSuccess(res.data));
@@ -164,10 +173,15 @@ export const fetchComments = (id) => {
 
 export const addComment = (id, comment) => {
   return (dispatch) => {
-    dispatch(postCommentRequest);
+    dispatch(postCommentRequest());
     return axios.post(`${API_URL}/articles/${id}/comments`, {'comment': comment})
       .then((res) => {
-        dispatch(postCommentSuccess(res.data));
+        return res.data.filter((comment) => {
+          return comment.belongs_to === id; 
+        });
+      })
+      .then((comments) => {
+        dispatch(postCommentSuccess(comments));
       })
       .catch((error) => {
         dispatch(postCommentFailure(error.message));
@@ -175,13 +189,13 @@ export const addComment = (id, comment) => {
   };
 };
 
-export const changeVote = (input, id, item) => {
+export const changeVote = (input, id, item, article_id) => {
   let mode;
   if (item === 'comment') {
     mode = 'comments';
     return (dispatch) => {
-      dispatch(voteCommentRequest);
-      return axios.put(`${API_URL}/${mode}/${id}?vote=${input}`)
+      dispatch(voteCommentRequest());
+      return axios.put(`${API_URL}/${mode}/${id}?vote=${input}`, {'article_id': article_id})
         .then((res) => {
           dispatch(voteCommentSuccess(res.data));
         })
@@ -193,7 +207,7 @@ export const changeVote = (input, id, item) => {
   if (item === 'article') {
     mode = 'articles';
     return (dispatch) => {
-      dispatch(voteArticleRequest);
+      dispatch(voteArticleRequest());
       return axios.put(`${API_URL}/${mode}/${id}?vote=${input}`)
         .then((res) => {
           dispatch(voteArticleSuccess(res.data));
@@ -205,10 +219,11 @@ export const changeVote = (input, id, item) => {
   }  
 };
 
-export const removeComment = (id) => {
+export const removeComment = (id, article_id) => {
   return (dispatch) => {
-    dispatch(removeCommentRequest);
-    return axios.delete(`${API_URL}/comments/${id}`)
+    dispatch(removeCommentRequest());
+    return axios.delete(`${API_URL}/comments/${id}`, {params: {'article_id': article_id
+    }})
       .then((res) => {
         dispatch(removeCommentSuccess(res.data));
       })
