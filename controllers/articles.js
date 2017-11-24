@@ -86,7 +86,6 @@ function addArticleVote (req, res, next) {
             res.send(updatedArticles);
         })
     })
-    })
     .catch((err) => {
         next(err);
     })
