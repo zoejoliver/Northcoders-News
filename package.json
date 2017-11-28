@@ -17,6 +17,7 @@
     "moment": "^2.19.1",
     "mongoose": "^4.13.1",
     "nodemon": "^1.12.1",
+    "path": "^0.12.7",
     "prop-types": "^15.6.0",
     "react": "^16.1.1",
     "react-dom": "^16.1.1",
@@ -59,7 +60,7 @@
     "watch": "webpack --watch",
     "build": "webpack -p",
     "lint": "eslint ./src",
-    "precommit": "npm run lint"
+    "precommit": "npm run lint --fix"
   },
   "author": "",
   "license": "ISC",

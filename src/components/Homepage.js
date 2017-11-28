@@ -8,7 +8,6 @@ export class Homepage extends React.Component {
   constructor(props) {
     super(props);
   }
-
   componentDidMount() {
     this.props.getMostPopular();
   }
