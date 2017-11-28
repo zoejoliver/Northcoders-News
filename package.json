@@ -57,7 +57,9 @@
     "start": "nodemon index.js",
     "dev": "webpack-dev-server",
     "watch": "webpack --watch",
-    "build": "webpack -p"
+    "build": "webpack -p",
+    "lint": "eslint ./src",
+    "precommit": "npm run lint"
   },
   "author": "",
   "license": "ISC",
