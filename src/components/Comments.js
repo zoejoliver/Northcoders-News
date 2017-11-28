@@ -5,7 +5,6 @@ import PT from 'prop-types';
 import moment from 'moment';
 import Loading from './Loading';
 
-
 class Comments extends React.Component {
   constructor(props) {
     super(props);
@@ -18,15 +17,24 @@ class Comments extends React.Component {
     this.removeHandler = this.removeHandler.bind(this);
   }
   componentDidMount() {
-    const id = this.props.article_id;
+    let id;
+    if (this.props.article_id) {
+      id = this.props.article_id;
+    }
+    else id = this.props.match.params.article_id;
     this.props.fetchComments(id);
   }
   
   render () {
     if (this.props.comments.length > 0) {
+      let commentName;
+      if (this.props.article_id) {
+        commentName = 'abc';
+      }
+      else commentName = 'comment-component';
       return (
         <div className='main container-fluid'>  
-          <div>
+          <div className={commentName}>
             <div className = "comment-form">
               <input value = {this.state.comment} className='add-comment-form' onChange={this.changeHandler} type='text' placeholder="Type your comment here..."></input>
               <input className='submit-form' onClick={this.submitHandler} type='submit' value="Submit"></input>
@@ -69,11 +77,15 @@ class Comments extends React.Component {
     this.props.removeComment(id, article_id);
   }
   voteClickHandler(e) {
+    let article_id;
+    if (this.props.article_id) {
+      article_id = this.props.article_id;
+    }
+    else article_id = this.props.match.params.article_id;
     e.preventDefault();
     const mode = 'comment';
     const id = e.target.id;
     const input = e.target.name;
-    const article_id = this.props.article_id;
     this.props.changeVote(input, id, mode, article_id);
   }
   changeHandler(e) {
@@ -82,10 +94,14 @@ class Comments extends React.Component {
     });
   }
   submitHandler(e) {
+    let article_id;
+    if (this.props.article_id) {
+      article_id = this.props.article_id;
+    }
+    else article_id = this.props.match.params.article_id;
     e.preventDefault();
-    const id = this.props.article_id;
     const comment = this.state.comment;
-    this.props.addComment(id, comment);
+    this.props.addComment(article_id, comment);
     this.setState({
       comment: ''
     });
@@ -105,8 +121,8 @@ const mapDispatchToProps = dispatch => ({
   changeVote: (input, id, mode, article_id) => {
     dispatch(changeVote(input, id, mode, article_id));
   },
-  addComment: (id, comment) => {
-    dispatch(addComment(id, comment));
+  addComment: (article_id, comment) => {
+    dispatch(addComment(article_id, comment));
   },
   removeComment: (id, article_id) => {
     dispatch(removeComment(id, article_id));
