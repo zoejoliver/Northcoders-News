@@ -154,8 +154,8 @@ describe('API', () => {
             })
         });
         it('updates article votes with down vote', () => {
-            const articleId = newData.articles[1]._id;
-            const prevVotes = newData.articles[1].votes;
+            const articleId = newData.articles[0]._id;
+            const prevVotes = newData.articles[0].votes;
             return request
             .put(`/api/articles/${articleId}?vote=down`)
             .expect(200)

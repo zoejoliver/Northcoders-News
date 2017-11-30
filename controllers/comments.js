@@ -4,11 +4,14 @@ function addCommentVote (req, res, next) {
     const upOrDown = req.query.vote;
     const vote = updateVoteCount(upOrDown);
     Comments.findOneAndUpdate({_id: req.params.comment_id}, { $inc: { votes: vote } }, { new: true })
-    .then(() => {
-        Comments.find({belongs_to: req.body.article_id})
-        .then((comments) => {
+    .then((comment) => {
+        if (req.body.article === undefined) res.send(comment);
+        else {
+            Comments.find({belongs_to: req.body.article_id})
+            .then((comments) => {
                 res.send(comments);
-        })
+            })
+        }
     })
     .catch((err) => {
         if (err.name === 'CastError')return next({err, type: 404})
