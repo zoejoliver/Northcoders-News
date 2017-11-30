@@ -50,7 +50,7 @@ class ArticleList extends React.Component {
                       <img src={topicImg} alt='topic-img' />
                     </div>
                     <div className='col-md-4 comments'>
-                      <p><NavLink to={`/articles/${article._id}/comments`}>{article.comments}<br/>comments</NavLink></p> 
+                      <p><NavLink className='comment-link' to={`/articles/${article._id}/comments`}>{article.comments}<br/>comments</NavLink></p> 
                     </div>
                     <div className='col-md-4 votes'>
                       <img className='heart' src='https://d30y9cdsu7xlg0.cloudfront.net/png/25848-200.png' alt='votes' />
