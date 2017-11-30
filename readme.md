@@ -2,7 +2,7 @@
 
 Northcoders News is an end-to-end project. The project is designed to have the functionality of reddit using a dataset seeded to a MongoDB and hosted on mLabs. 
 
-It uses Node.js and Express to provide custom API routes to a React front-end. The back-end server is hosted on Heroku [here](https://northcoders-news-zjo.herokuapp.com/api/articles).
+It uses Node.js and Express to provide custom API routes to a React front-end hosted [here](https://zjo-northcoders-news.herokuapp.com/). The back-end server is hosted on Heroku [here](https://northcoders-news-zjo.herokuapp.com/api/articles).
 
 ### Prerequisites
 
