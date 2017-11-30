@@ -147,7 +147,8 @@ Comments.propTypes = {
   changeVote: PT.func.isRequired,
   addComment: PT.func.isRequired,
   removeComment: PT.func.isRequired,
-  article_id: PT.string.isRequired
+  article_id: PT.string.isRequired,
+  match: PT.any.isRequired
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Comments);
