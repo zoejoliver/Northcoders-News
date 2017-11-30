@@ -5,7 +5,6 @@ var nodeModulesPath = path.resolve(__dirname, 'node_modules');
 const PATHS = {
     entry: path.join(__dirname, 'src', 'index.js'),
     public: path.join(__dirname, 'public'),
-    build: path.join(__dirname, 'public', 'build')
   };
 
 var config = {
@@ -13,7 +12,7 @@ var config = {
   devtool: 'source-map',
   entry: PATHS.entry,
   output: {
-    path: PATHS.build,
+    path: PATHS.public,
     filename: 'bundle.js'
   },
   module: {

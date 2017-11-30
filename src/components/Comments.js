@@ -4,6 +4,7 @@ import {fetchComments, addComment, changeVote, removeComment} from '../actions';
 import PT from 'prop-types';
 import moment from 'moment';
 import Loading from './Loading';
+import {NavLink} from 'react-router-dom';
 
 class Comments extends React.Component {
   constructor(props) {
@@ -35,6 +36,15 @@ class Comments extends React.Component {
       return (
         <div className='main container-fluid'>  
           <div className={commentName}>
+            {(() => {
+              if (!this.props.article_id) {
+                return (
+                  <div className='return-articles'>
+                    <NavLink to={`/articles/${this.props.match.params.article_id}`}>&#8592; Return to article</NavLink>
+                  </div>
+                );
+              }
+            })()}
             <div className = "comment-form">
               <input value = {this.state.comment} className='add-comment-form' onChange={this.changeHandler} type='text' placeholder="Type your comment here..."></input>
               <input className='submit-form' onClick={this.submitHandler} type='submit' value="Submit"></input>
