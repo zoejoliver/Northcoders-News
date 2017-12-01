@@ -52,11 +52,16 @@ npm test
 ```
 
 ## Built With
-[React JS]()
+[React JS](https://reactjs.org/)
 
-[Redux]()
+[Redux](https://redux.js.org/)
 
-[Axios]()
+[Axios](https://www.npmjs.com/package/axios)
+
+[MongoDB](https://www.mongodb.com/cloud/atlas/lp/general?jmp=search&utm_source=google&utm_campaign=EMEA-UK-IE-MongoDB-to-Atlas-Brand-Alpha&utm_keyword=mongodb&utm_device=c&utm_network=g&utm_medium=cpc&utm_creative=229921765157&utm_matchtype=e&_bt=229921765157&_bk=mongodb&_bm=e&_bn=g&gclid=Cj0KCQiAmITRBRCSARIsAEOZmr5nWbSmk1kiF8n10In8ATXubYeQuKnq-R5963PuhNbEyl-Pg1774W0aArGHEALw_wcB)
+
+[Mongoose](http://mongoosejs.com/)
+
 
 ## Authors
 
