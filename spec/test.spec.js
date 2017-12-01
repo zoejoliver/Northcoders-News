@@ -8,7 +8,7 @@ const { Articles, Comments, Topics, Users } = require('../models/models');
 const request = supertest(app);
 mongoose.Promise = global.Promise;
 
-describe('API', () => {
+xdescribe('API', () => {
     let newData;
     beforeEach(() => {
         return mongoose.connection.db.dropDatabase()

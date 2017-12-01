@@ -1,5 +1,5 @@
 import React from 'react';
-import {fetchArticleById, changeVote} from '../actions';
+import {fetchArticleById, changeVote} from '../actions/articles';
 import {connect} from 'react-redux';
 import Comments from './Comments';
 import PT from 'prop-types';

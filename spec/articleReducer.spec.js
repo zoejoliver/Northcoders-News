@@ -1,6 +1,6 @@
 import {expect} from 'chai';
 import articleReducer, {getInitialState} from '../src/reducers/articles';
-import * as actionCreators from '../src/actions';
+import * as actionCreators from '../src/actions/articles';
 
 describe('articleReducer', () => {
     describe('default behaviour', () => {

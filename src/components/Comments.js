@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {fetchComments, addComment, changeVote, removeComment} from '../actions';
+import {fetchComments, addComment, changeVote, removeComment} from '../actions/comments';
 import PT from 'prop-types';
 import moment from 'moment';
 import Loading from './Loading';

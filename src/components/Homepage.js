@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {getMostPopular} from '../actions';
+import {getMostPopular} from '../actions/articles';
 import {NavLink} from 'react-router-dom';
 import PT from 'prop-types';
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {fetchArticlesByTopic, changeVote} from '../actions';
+import {fetchArticlesByTopic, changeVote} from '../actions/articles';
 import {NavLink} from 'react-router-dom';
 import PT from 'prop-types';
 

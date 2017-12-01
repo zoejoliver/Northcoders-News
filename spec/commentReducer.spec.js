@@ -1,6 +1,6 @@
 import {expect} from 'chai';
 import commentReducer, {getInitialState} from '../src/reducers/comments';
-import * as actionCreators from '../src/actions';
+import * as actionCreators from '../src/actions/comments';
 
 describe('commentReducer', () => {
     describe('default behaviour', () => {
