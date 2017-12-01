@@ -1,5 +1,14 @@
+# dependencies
 /node_modules
+
+# production
+/public/build
 /public/bundle.js
 /webpack.production.config.js
 /server-FE.js
-/public/build
+
+# misc
+.DS_Store
+
+
+
