@@ -7,7 +7,7 @@ import Loading from './Loading';
 import {NavLink} from 'react-router-dom';
 
 class Comments extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super(props);
     this.state = {
       comment: ''
@@ -17,7 +17,7 @@ class Comments extends React.Component {
     this.submitHandler = this.submitHandler.bind(this);
     this.removeHandler = this.removeHandler.bind(this);
   }
-  componentDidMount() {
+  componentDidMount () {
     let id;
     if (this.props.article_id) {
       id = this.props.article_id;
@@ -80,13 +80,13 @@ class Comments extends React.Component {
     }
   }
 
-  removeHandler(e) {
+  removeHandler (e) {
     e.preventDefault();
     const id = e.target.id;
     const article_id = e.target.name;
     this.props.removeComment(id, article_id);
   }
-  voteClickHandler(e) {
+  voteClickHandler (e) {
     let article_id;
     if (this.props.article_id) {
       article_id = this.props.article_id;
@@ -98,12 +98,12 @@ class Comments extends React.Component {
     const input = e.target.name;
     this.props.changeVote(input, id, mode, article_id);
   }
-  changeHandler(e) {
+  changeHandler (e) {
     this.setState({
       comment: e.target.value
     });
   }
-  submitHandler(e) {
+  submitHandler (e) {
     let article_id;
     if (this.props.article_id) {
       article_id = this.props.article_id;

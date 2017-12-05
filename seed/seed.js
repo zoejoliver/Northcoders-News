@@ -37,7 +37,7 @@ mongoose.connect(DB, {useMongoClient: true}, function (err) {
   }
 });
 
-function addNorthcoderUser(done) {
+function addNorthcoderUser (done) {
   var userDoc = new models.Users(
     {
       username: 'northcoder',
@@ -53,7 +53,7 @@ function addNorthcoderUser(done) {
   });
 }
 
-function addUsers(done) {
+function addUsers (done) {
   logger.info('adding users')
   async.eachSeries(userData, function (user, cb) {
     var userDoc = new models.Users(user);
@@ -69,7 +69,7 @@ function addUsers(done) {
   })
 }
 
-function addTopics(done) {
+function addTopics (done) {
   logger.info('adding topics')
   var topicDocs = [];
   async.eachSeries(['Football', 'Cooking', 'Coding'], function (topic, cb) {
@@ -93,7 +93,7 @@ function addTopics(done) {
   })
 }
 
-function addArticles(topicDocs, done) {
+function addArticles (topicDocs, done) {
   logger.info('adding articles');
   // will be a big array of strings
   var docIds = [];
@@ -138,7 +138,7 @@ function addArticles(topicDocs, done) {
   })
 }
 
-function addComments(docIds, done) {
+function addComments (docIds, done) {
   logger.info('adding comments');
   async.eachSeries(docIds, function (id, cb) {
     async.eachSeries(_.range(_.sample(_.range(5, 11))), function (x, cbTwo) {
@@ -167,7 +167,7 @@ function addComments(docIds, done) {
   });
 }
 
-function getRandomStamp() {
+function getRandomStamp () {
   return new Date (
     moment().subtract(_.sample(_.range(1,7)), 'days')
     .subtract(_.sample(_.range(1,24)), 'hours')

@@ -5,10 +5,10 @@ import {NavLink} from 'react-router-dom';
 import PT from 'prop-types';
 
 export class Homepage extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super(props);
   }
-  componentDidMount() {
+  componentDidMount () {
     this.props.getMostPopular();
   }
   render () {

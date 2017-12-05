@@ -9,7 +9,7 @@ import Comments from './Comments';
 import './App.css';
 
 class App extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super(props);
   }
   render () {

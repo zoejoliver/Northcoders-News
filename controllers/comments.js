@@ -14,7 +14,7 @@ function addCommentVote (req, res, next) {
         }
     })
     .catch((err) => {
-        if (err.name === 'CastError')return next({err, type: 404})
+        if (err.name === 'CastError') return next({err, type: 404})
         next(err);
     })
 }

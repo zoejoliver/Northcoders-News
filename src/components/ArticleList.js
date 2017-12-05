@@ -5,12 +5,12 @@ import {NavLink} from 'react-router-dom';
 import PT from 'prop-types';
 
 class ArticleList extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super(props);
     this.voteClickHandler = this.voteClickHandler.bind(this);
   }
 
-  componentDidMount() {
+  componentDidMount () {
     const topic = this.props.match.params.topic;
     this.props.fetchArticlesByTopic(topic);
   }
@@ -65,7 +65,7 @@ class ArticleList extends React.Component {
       </div>
     );
   }
-  voteClickHandler(e) {
+  voteClickHandler (e) {
     e.preventDefault();
     const mode = 'article';
     const id = e.target.id;

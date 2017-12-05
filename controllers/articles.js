@@ -44,11 +44,11 @@ function addCommentCount (arr, count) {
 function getArticleComments (req, res, next) {
     Comments.find({belongs_to: req.params.article_id})
     .then((comments) => {
-        if(comments.length < 1) return next();
+        if (comments.length < 1) return next();
         res.send(comments);
     })
     .catch((err) => {
-        if (err.name === 'CastError')return next({err, type: 404, msg: 'Invalid article Id'})
+        if (err.name === 'CastError') return next({err, type: 404, msg: 'Invalid article Id'})
         next(err);
     })
 }
@@ -80,7 +80,7 @@ function addArticleVote (req, res, next) {
     Articles.findOneAndUpdate({_id:req.params.article_id}, { $inc: { votes: vote } }, { new: true })
     .then((article) => {
         if (article.belongs_to === 'cats') res.send(article)
-        articleArr = [article]
+        const articleArr = [article]
         Promise.all(getCommentCount(articleArr))
         .then((commentCount) => {
             const updatedArticles = addCommentCount(articleArr, commentCount);

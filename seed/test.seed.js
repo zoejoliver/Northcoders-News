@@ -11,7 +11,7 @@ function saveUser () {
   return user.save();
 }
 
-function saveTopics() {
+function saveTopics () {
   const topics = [
     { title: 'Football', slug: 'football' },
     { title: 'Cooking', slug: 'cooking' },
@@ -20,7 +20,7 @@ function saveTopics() {
   return Promise.all(topics);
 }
 
-function saveArticles() {
+function saveArticles () {
   const articles = [
     { title: 'Cats are great', body: 'something', belongs_to: 'cats' },
     { title: 'Football is fun', body: 'something', belongs_to: 'football' }
@@ -28,7 +28,7 @@ function saveArticles() {
   return Promise.all(articles);
 }
 
-function saveComments(articles) {
+function saveComments (articles) {
   const comments = [
     { body: 'this is a comment', belongs_to: articles[0]._id, created_by: 'northcoder' },
     { body: 'this is another comment', belongs_to: articles[0]._id, created_by: 'northcoder' }
@@ -36,7 +36,7 @@ function saveComments(articles) {
   return Promise.all(comments);
 }
 
-function saveTestData() {
+function saveTestData () {
   return saveUser()
     .then((user) => {
       savedData.user = user;

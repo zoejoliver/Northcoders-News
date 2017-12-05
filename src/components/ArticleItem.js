@@ -6,7 +6,7 @@ import PT from 'prop-types';
 import Loading from './Loading';
 
 class ArticleItem extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super(props);
     this.state = {
       commentFlag: false
@@ -14,7 +14,7 @@ class ArticleItem extends React.Component {
     this.voteClickHandler = this.voteClickHandler.bind(this);
     this.showComments = this.showComments.bind(this);
   }
-  componentDidMount() {
+  componentDidMount () {
     const id = this.props.match.params.article_id;
     this.props.fetchArticleById(id);
   }
@@ -64,7 +64,7 @@ class ArticleItem extends React.Component {
     
   }
   
-  voteClickHandler(e) {
+  voteClickHandler (e) {
     e.preventDefault();
     const mode = 'article';
     const id = e.target.id;
@@ -72,7 +72,7 @@ class ArticleItem extends React.Component {
     this.props.changeVote(input, id, mode);
   }
 
-  showComments() {
+  showComments () {
     this.setState({
       commentFlag: true
     });

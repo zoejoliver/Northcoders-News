@@ -50,4 +50,4 @@ module.exports = {
     historyApiFallback: true,
     port: 9000
   }
-}
+};
