@@ -1,15 +1,15 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const cors = require('cors');
 const bodyParser = require('body-parser').json();
 const app = express();
 const {DB} = require('./config');
-const apiRouter = require('./routes/apiRouter');
+const apiRouter = require('./routes');
 mongoose.Promise = global.Promise;
-const cors = require('cors');
-
-app.use(cors());
 
 mongoose.connect(DB, {useMongoClient: true});
+
+app.use(cors());
 
 app.use(bodyParser);
 
