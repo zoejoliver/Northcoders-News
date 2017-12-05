@@ -7,7 +7,7 @@ const saveTestData = require('../seed/test.seed');
 const request = supertest(app);
 mongoose.Promise = global.Promise;
 
-xdescribe('API', () => {
+describe('API', () => {
 let newData;
     beforeEach(() => {
     return mongoose.connection.db.dropDatabase()
@@ -26,10 +26,10 @@ let newData;
         .get('/api/topics')
         .expect(200)
         .then((res) => {
-        expect(res.body.length).to.equal(3);
+        expect(res.body.length).to.equal(newData.topics.length);
         res.body.forEach((topic) => {
             expect(topic._id).to.be.a('string');
-            expect(topic.title).to.be.oneOf(['Football', 'Cats', 'Cooking']);
+            expect(topic.title).to.be.oneOf([newData.topics[0].title, newData.topics[1].title, newData.topics[2].title]);
         })        
         });
     });
@@ -65,10 +65,10 @@ let newData;
         .get('/api/articles')
         .expect(200)
         .then((res) => {
-        expect(res.body.length).to.equal(2);
+        expect(res.body.length).to.equal(newData.articles.length);
         res.body.forEach(article => {
-            expect(article.belongs_to).to.be.oneOf(['football', 'cats']);
-            expect(article.title).to.be.oneOf(['Football is fun', 'Cats are great']);
+            expect(article.belongs_to).to.be.oneOf([newData.articles[0].belongs_to, newData.articles[1].belongs_to]);
+            expect(article.title).to.be.oneOf([newData.articles[0].title, newData.articles[1].title]);
         })
         })
     });
@@ -79,7 +79,7 @@ let newData;
         .expect(200)
         .then((res) => {
         expect(res.body.length).to.equal(2);
-        expect(res.body[0].body).to.be.oneOf(['this is a comment', 'this is another comment']);
+        expect(res.body[0].body).to.equal(newData.comments[0].body);
         })
     });
     it('sends back correct status code for invalid id', () => {
@@ -196,9 +196,10 @@ let newData;
         const numComments = newData.comments.length;
         return request
         .delete(`/api/comments/${commentId}`)
+        .query({ article_id: `${newData.comments[0].belongs_to}` })
         .expect(200)
         .then((res) => {
-          expect(res.body.length).to.equal(numComments -1);
+          expect(res.body.length).to.equal(numComments-1);
           })  
     });    
     it('returns correct status code for invalid comment id', () => {

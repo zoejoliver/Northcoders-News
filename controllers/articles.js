@@ -79,13 +79,17 @@ function addArticleVote (req, res, next) {
     const vote = updateVoteCount(upOrDown);
     Articles.findOneAndUpdate({_id:req.params.article_id}, { $inc: { votes: vote } }, { new: true })
     .then((article) => {
-        if (article.belongs_to === 'cats') res.send(article)
-        const articleArr = [article]
-        Promise.all(getCommentCount(articleArr))
-        .then((commentCount) => {
-            const updatedArticles = addCommentCount(articleArr, commentCount);
-            res.send(updatedArticles);
-        })
+        if (article.belongs_to === 'cats') {
+            res.send(article)
+        }
+        else {
+            const articleArr = [article]
+            Promise.all(getCommentCount(articleArr))
+            .then((commentCount) => {
+                const updatedArticles = addCommentCount(articleArr, commentCount);
+                res.send(updatedArticles);
+            })   
+        }
     })
     .catch((err) => {
         next(err);
