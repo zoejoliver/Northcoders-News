@@ -1,4 +1,4 @@
-const {Articles, Topics, Comments} = require('../models/models');
+const {Articles, Topics, Comments} = require('../models');
 
 function getTopics (req, res, next) {
     Topics.find({})

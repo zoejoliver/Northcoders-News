@@ -1,4 +1,4 @@
-const {Comments} = require('../models/models');
+const {Comments} = require('../models');
 
 function addCommentVote (req, res, next) {
     const upOrDown = req.query.vote;
