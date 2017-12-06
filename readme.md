@@ -6,7 +6,17 @@ It uses Node.js and Express to provide custom API routes to a React front-end ho
 
 ### Prerequisites
 
-To run this project you will need node.js installed locally.
+To run this project you will need node.js version 7 or above and npm installed locally.
+
+You can check the versions of node and npm you have installed by typing into the command line:
+
+```
+node -v
+
+npm -v
+```
+
+To install node or npm, follow this [guide](https://nodejs.org/en/download/package-manager/)
 
 ### Installing
 
