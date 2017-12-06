@@ -3,11 +3,10 @@ const {Users} = require('../models/models');
 function getUserData (req, res, next) {
     Users.find({username: req.params.username})
     .then((data) => {
-        if (data.length > 0) res.send(data);
-        else next();
+        if (data.length === 0) return next({status: 404, message: 'Invalid username'})
+        else res.send(data);
     })
     .catch((err) => {
-        if (err.name === 'CastError') return next({err, type: 404, msg: 'Invalid username'})
         next(err);
     })
 }

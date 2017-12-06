@@ -14,7 +14,7 @@ function addCommentVote (req, res, next) {
         }
     })
     .catch((err) => {
-        if (err.name === 'CastError') return next({err, type: 404})
+        if (err.name === 'CastError') return next({status: 404, message: 'Invalid comment ID'})
         next(err);
     })
 }
@@ -28,7 +28,7 @@ function removeComment (req, res, next) {
         })
     })
     .catch((err) => {
-        if (err.name === 'CastError') return next({type: 404, msg: 'Comment not found'});
+        if (err.name === 'CastError') return next({status: 404, message: 'Comment not found'});
         next(err);
     })
 }

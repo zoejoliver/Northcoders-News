@@ -46,7 +46,7 @@ let newData;
         .get('/api/topics/moomins/articles')
         .expect(404)
         .then((res) => {
-        expect(res.body.msg).to.equal('Page not found');
+        expect(res.body.message).to.equal('Invalid topic ID');
         })
     });
     it('sends back topic articles with comment count', () => {
@@ -79,7 +79,9 @@ let newData;
         .expect(200)
         .then((res) => {
         expect(res.body.length).to.equal(2);
-        expect(res.body[0].body).to.equal(newData.comments[0].body);
+        res.body.forEach(comment => {
+            expect(comment.body).to.be.oneOf([newData.comments[0].body, newData.comments[1].body]);
+        })
         })
     });
     it('sends back correct status code for invalid id', () => {
@@ -87,7 +89,7 @@ let newData;
         .get('/api/articles/zoe/comments')
         .expect(404)
         .then((res) => {
-        expect(res.body.msg).to.equal('Invalid article Id');
+        expect(res.body.message).to.equal('Invalid article ID');
         })
     });
     it('sends back articles with comment count', () => {
@@ -137,7 +139,7 @@ let newData;
         .get('/api/users/zoe')
         .expect(404)
         .then((res) => {
-        expect(res.body.msg).to.equal('Page not found');
+        expect(res.body.message).to.equal('Invalid username');
         })
     });
   });

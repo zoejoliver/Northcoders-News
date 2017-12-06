@@ -10,7 +10,7 @@ function getArticles (req, res, next) {
         })
     })
     .catch((err) => {
-        next(err);
+        return next(err);
     })
 }
 
@@ -24,7 +24,8 @@ function getArticleById (req, res, next) {
         })
     })
     .catch((err) => {
-        next(err);
+        if(err.name === 'CastError') return next({status: 404, message: 'Invalid article ID'});
+        return next(err);
     })
 }
 
@@ -44,12 +45,11 @@ function addCommentCount (arr, count) {
 function getArticleComments (req, res, next) {
     Comments.find({belongs_to: req.params.article_id})
     .then((comments) => {
-        if (comments.length < 1) return next();
         res.send(comments);
     })
     .catch((err) => {
-        if (err.name === 'CastError') return next({err, type: 404, msg: 'Invalid article Id'})
-        next(err);
+        if (err.name === 'CastError') return next({status: 404, message: 'Invalid article ID'})
+        return next(err);
     })
 }
 
@@ -70,7 +70,7 @@ function addCommentById (req, res, next) {
         })
     })
     .catch((err) => {
-        next(err);
+        return next(err);
     })
 }
 
@@ -92,7 +92,8 @@ function addArticleVote (req, res, next) {
         }
     })
     .catch((err) => {
-        next(err);
+        if (err.name === 'CastError') return next({status: 404, message: 'Invalid article ID'})
+        return next(err);
     })
 }
 
