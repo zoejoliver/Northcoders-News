@@ -81,11 +81,14 @@ export const addComment = (id, comment) => {
     dispatch(postCommentRequest());
     return axios.post(`${API_URL}/articles/${id}/comments`, {'comment': comment})
       .then((res) => {
-        return res.data.filter((comment) => {
-          return comment.belongs_to === id; 
-        }).sort((a, b) => {
-          return b.created_at - a.created_at;
-        });
+        if (res.data.length > 1) {
+          return res.data.filter((comment) => {
+            return comment.belongs_to === id; 
+          }).sort((a, b) => {
+            return b.created_at - a.created_at;
+          });
+        }
+        else return res.data;
       })
       .then((comments) => {
         dispatch(postCommentSuccess(comments));
