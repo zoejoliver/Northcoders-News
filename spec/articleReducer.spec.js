@@ -34,10 +34,54 @@ describe('articleReducer', () => {
       expect(newState.data).to.eql(data);
       expect(newState.error).to.equal(null);
     });
+    it('should not mutate previous state', () => {
+      const data = [3,6,9,12];
+      const prevState = getInitialState();
+      const action = actionCreators.fetchArticleSuccess(data);
+      const newState = articleReducer(prevState, action);
+      expect(newState).to.not.equal(prevState);
+      expect(newState.data).to.not.equal(prevState.data);
+    });
     it('handles FETCH_ARTICLES_FAILURE', () => {
       const err = 'something went wrong';
       const prevState = getInitialState();
       const action = actionCreators.fetchArticleFailure(err);
+      const newState = articleReducer(prevState, action);
+      expect(newState.loading).to.equal(false);
+      expect(newState.data).to.eql([]);
+      expect(newState.error).to.equal(err);
+    });
+  });
+  describe('changeVote actions', () => {
+    it('handles VOTE_ARTICLE_REQUEST', () => {
+      const prevState = getInitialState();
+      const action = actionCreators.voteArticleRequest();
+      const newState = articleReducer(prevState, action);
+      expect(newState.loading).to.equal(true);
+      expect(newState.data).to.eql([]);
+      expect(newState.error).to.equal(null);
+    });
+    it('handles VOTE_ARTICLE_SUCCESS', () => {
+      const data = [3,6,9,12];
+      const prevState = getInitialState();
+      const action = actionCreators.voteArticleSuccess(data);
+      const newState = articleReducer(prevState, action);
+      expect(newState.loading).to.equal(false);
+      expect(newState.data).to.eql(data);
+      expect(newState.error).to.equal(null);
+    });
+    it('should not mutate previous state', () => {
+      const data = [3,6,9,12];
+      const prevState = getInitialState();
+      const action = actionCreators.voteArticleSuccess(data);
+      const newState = articleReducer(prevState, action);
+      expect(newState).to.not.equal(prevState);
+      expect(newState.data).to.not.equal(prevState.data);
+    });
+    it('handles VOTE_ARTICLE_FAILURE', () => {
+      const err = 'something went wrong';
+      const prevState = getInitialState();
+      const action = actionCreators.voteArticleFailure(err);
       const newState = articleReducer(prevState, action);
       expect(newState.loading).to.equal(false);
       expect(newState.data).to.eql([]);
