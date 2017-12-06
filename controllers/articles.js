@@ -24,7 +24,7 @@ function getArticleById (req, res, next) {
         })
     })
     .catch((err) => {
-        if(err.name === 'CastError') return next({status: 404, message: 'Invalid article ID'});
+        if (err.name === 'CastError') return next({status: 404, message: 'Invalid article ID'});
         return next(err);
     })
 }
