@@ -45,7 +45,7 @@ class ArticleItem extends React.Component {
           </div>
         
           {(() => {
-            if (this.state.commentFlag) {
+            if (this.state.commentFlag || this.props.commentflag === 'true') {
               return (
                 <div className='comment-component'>
                   <Comments article_id={this.props.match.params.article_id}/>
@@ -79,10 +79,10 @@ class ArticleItem extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   articles: state.articles.data,
   loading: state.articles.loading,
-  error: state.articles.error,
+  error: state.articles.error
 });
 
 const mapDispatchToProps = dispatch => ({
