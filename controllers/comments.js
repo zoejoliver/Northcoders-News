@@ -1,13 +1,13 @@
-const {Comments} = require('../models');
+const {Comment} = require('../models');
 
 function addCommentVote (req, res, next) {
     const upOrDown = req.query.vote;
     const vote = updateVoteCount(upOrDown);
-    Comments.findOneAndUpdate({_id: req.params.comment_id}, { $inc: { votes: vote } }, { new: true })
+    Comment.findOneAndUpdate({_id: req.params.comment_id}, { $inc: { votes: vote } }, { new: true })
     .then((comment) => {
         if (req.body.article === undefined) res.send(comment);
         else {
-            Comments.find({belongs_to: req.body.article_id})
+            Comment.find({belongs_to: req.body.article_id})
             .then((comments) => {
                 res.send(comments);
             })
@@ -20,9 +20,9 @@ function addCommentVote (req, res, next) {
 }
 
 function removeComment (req, res, next) {
-    Comments.findByIdAndRemove(req.params.comment_id)
+    Comment.findByIdAndRemove(req.params.comment_id)
     .then(() => {
-        Comments.find({belongs_to: req.query.article_id})
+        Comment.find({belongs_to: req.query.article_id})
         .then((comments) => {
             res.send(comments);
         })

@@ -7,7 +7,7 @@ const saveTestData = require('../seed/test.seed');
 const request = supertest(app);
 mongoose.Promise = global.Promise;
 
-xdescribe('API', () => {
+describe('API', () => {
 let newData;
     beforeEach(() => {
     return mongoose.connection.db.dropDatabase()

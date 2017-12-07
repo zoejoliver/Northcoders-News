@@ -1,7 +1,7 @@
-const {Articles, Comments} = require('../models');
+const {Article, Comment} = require('../models');
 
 function getArticles (req, res, next) {
-    Articles.find({})
+    Article.find({})
     .then((articles) => {
         Promise.all(getCommentCount(articles))
         .then((commentCount) => {
@@ -15,7 +15,7 @@ function getArticles (req, res, next) {
 }
 
 function getArticleById (req, res, next) {
-    Articles.find({_id: req.params.article_id})
+    Article.find({_id: req.params.article_id})
     .then((article) => {
         Promise.all(getCommentCount(article))
         .then((commentCount) => {
@@ -31,7 +31,7 @@ function getArticleById (req, res, next) {
 
 function getCommentCount (arr) {
     return arr.map((article) => {
-        return Comments.count({belongs_to: article._id})
+        return Comment.count({belongs_to: article._id})
     })
 }
 function addCommentCount (arr, count) {
@@ -43,7 +43,7 @@ function addCommentCount (arr, count) {
 }
 
 function getArticleComments (req, res, next) {
-    Comments.find({belongs_to: req.params.article_id})
+    Comment.find({belongs_to: req.params.article_id})
     .then((comments) => {
         res.send(comments);
     })
@@ -62,9 +62,9 @@ function addCommentById (req, res, next) {
         votes: 0,
         created_at: Date.now()
     }
-    Comments.create([newComment])
+    Comment.create([newComment])
     .then(() => {
-        return Comments.find({})
+        return Comment.find({})
         .then((comments) => {
             res.send(comments);
         })
@@ -77,7 +77,7 @@ function addCommentById (req, res, next) {
 function addArticleVote (req, res, next) {
     const upOrDown = req.query.vote;
     const vote = updateVoteCount(upOrDown);
-    Articles.findOneAndUpdate({_id:req.params.article_id}, { $inc: { votes: vote } }, { new: true })
+    Article.findOneAndUpdate({_id:req.params.article_id}, { $inc: { votes: vote } }, { new: true })
     .then((article) => {
         if (article.belongs_to === 'cats') {
             res.send(article)

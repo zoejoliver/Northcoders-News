@@ -1,7 +1,7 @@
-const {Articles, Topics, Comments} = require('../models');
+const {Article, Topic, Comment} = require('../models');
 
 function getTopics (req, res, next) {
-    Topics.find({})
+    Topic.find({})
     .then((topics) => {
         res.send(topics);
     })
@@ -11,7 +11,7 @@ function getTopics (req, res, next) {
 }
 
 function getArticlesByTopic (req, res, next) {
-    Articles.find({belongs_to: req.params.topic_id})
+    Article.find({belongs_to: req.params.topic_id})
     .then((articles) => {
         if (articles.length === 0) return next({status: 404, message: 'Invalid topic ID'})
         Promise.all(getCommentCount(articles))
@@ -27,7 +27,7 @@ function getArticlesByTopic (req, res, next) {
 
 function getCommentCount (arr) {
     return arr.map((article) => {
-        return Comments.count({belongs_to: article._id})
+        return Comment.count({belongs_to: article._id})
     })
 }
 function addCommentCount (arr, count) {
