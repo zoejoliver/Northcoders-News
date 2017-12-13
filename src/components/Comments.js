@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {fetchComments, addComment, removeComment} from '../actions/comments';
+import {fetchComments, addComment} from '../actions/comments';
 import PT from 'prop-types';
 import Loading from './Loading';
 import CommentItem from './CommentItem';
@@ -13,7 +13,6 @@ class Comments extends React.Component {
     };
     this.changeHandler = this.changeHandler.bind(this);
     this.submitHandler = this.submitHandler.bind(this);
-    this.removeHandler = this.removeHandler.bind(this);
   }
   componentDidMount () {
     let id;
@@ -54,12 +53,6 @@ class Comments extends React.Component {
     }
   }
 
-  removeHandler (e) {
-    e.preventDefault();
-    const id = e.target.id;
-    const article_id = e.target.name;
-    this.props.removeComment(id, article_id);
-  }
   changeHandler (e) {
     this.setState({
       comment: e.target.value
@@ -92,9 +85,6 @@ const mapDispatchToProps = dispatch => ({
   },
   addComment: (article_id, comment) => {
     dispatch(addComment(article_id, comment));
-  },
-  removeComment: (id, article_id) => {
-    dispatch(removeComment(id, article_id));
   }
 });
 
@@ -104,7 +94,6 @@ Comments.propTypes = {
   error: PT.any,
   fetchComments: PT.func.isRequired,
   addComment: PT.func.isRequired,
-  removeComment: PT.func.isRequired,
   article_id: PT.string.isRequired,
   match: PT.any.isRequired
 };

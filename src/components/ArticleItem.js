@@ -14,6 +14,7 @@ class ArticleItem extends React.Component {
     };
     this.voteClickHandler = this.voteClickHandler.bind(this);
     this.showComments = this.showComments.bind(this);
+    this.hideComments = this.hideComments.bind(this);
   }
   componentDidMount () {
     const id = this.props.match.params.article_id;
@@ -53,7 +54,16 @@ class ArticleItem extends React.Component {
             </div>
             <p className ='article-author'>By {this.props.articles[0].created_by}</p>
             <p>{this.props.articles[0].body}</p>
-            <button className='comment-p' onClick={this.showComments}>{this.props.articles[0].comments} comments</button>      
+            {(() => {
+            if (this.state.commentFlag || this.props.commentflag === 'true') {
+              return (
+                <button className='comment-p' onClick={this.hideComments}>hide comments</button>   
+              );
+            }
+            else return (
+                <button className='comment-p' onClick={this.showComments}>show comments</button>   
+            );
+          })()}   
           </div>
         
           {(() => {
@@ -94,6 +104,11 @@ class ArticleItem extends React.Component {
   showComments () {
     this.setState({
       commentFlag: true
+    });
+  }
+  hideComments () {
+    this.setState({
+      commentFlag: false
     });
   }
 }
