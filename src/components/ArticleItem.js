@@ -9,7 +9,8 @@ class ArticleItem extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
-      commentFlag: false
+      commentFlag: false,
+      votes: 0
     };
     this.voteClickHandler = this.voteClickHandler.bind(this);
     this.showComments = this.showComments.bind(this);
@@ -36,7 +37,18 @@ class ArticleItem extends React.Component {
               <div className='col-xs-12 col-md-2 votes-article-item'>
                 <input type="image" src="https://d30y9cdsu7xlg0.cloudfront.net/png/35608-200.png" name="up" onClick={this.voteClickHandler} className="vote-btn" id={this.props.articles[0]._id} />
                 <input type="image" src="https://d30y9cdsu7xlg0.cloudfront.net/png/35609-200.png" name="down" onClick={this.voteClickHandler} className="vote-btn" id={this.props.articles[0]._id} />
-                <p className='vote-num'>{this.props.articles[0].votes} votes</p>
+                {(() => {
+                  if (this.props.loading) {
+                    return (
+                      <p className='vote-num'>{this.state.votes} votes</p>
+                    );
+                  }
+                  else {
+                    return (
+                      <p className='vote-num'>{this.props.articles[0].votes} votes</p>
+                    );
+                  } 
+                })()}
               </div>
             </div>
             <p className ='article-author'>By {this.props.articles[0].created_by}</p>
@@ -69,6 +81,13 @@ class ArticleItem extends React.Component {
     const mode = 'article';
     const id = e.target.id;
     const input = e.target.name;
+    const prevVotes = this.props.articles[0].votes;
+    let newVotes;
+    if (input === 'up') newVotes = prevVotes + 1;
+    else  newVotes = prevVotes - 1;
+    this.setState({
+      votes: newVotes
+    })
     this.props.changeVote(input, id, mode);
   }
 
