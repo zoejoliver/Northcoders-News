@@ -14,10 +14,6 @@ app.use(cors());
 app.use(bodyParser);
 
 app.use('/api', apiRouter);
-
-app.use('/*', (req, res) => {
-  return res.status(404).send({message: 'Page Not found'});
-});
   
 app.use((err, req, res, next) => {
   if (err.status === 400) return res.status(400).send({message: err.message});

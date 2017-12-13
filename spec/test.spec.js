@@ -164,9 +164,19 @@ let newData;
         expect(res.body.votes).to.equal(prevVotes - 1);
         })
     });
+    it('returns correct status code for invalid article ID', () => {
+        const articleId = '123'
+        const prevVotes = newData.articles[0].votes;
+        return request
+        .put(`/api/articles/${articleId}?vote=down`)
+        .expect(400)
+        .then((res) => {
+        expect(res.body.message).to.equal('Invalid article ID');
+        })
+    });
   });
   describe('PUT /comments', () => {
-    it('updates comment votes with either up vote', () => {
+    it('updates comment votes with up vote', () => {
         const commentId = newData.comments[0]._id;
         const prevVotes = newData.comments[0].votes;
         return request
@@ -190,6 +200,9 @@ let newData;
         return request
         .put('/api/comments/123?vote=down')
         .expect(400)
+        .then((res) => {
+            expect(res.body.message).to.equal('Invalid comment ID');
+        })
     });
   });
   describe('DELETE /comments', () => {
@@ -202,12 +215,15 @@ let newData;
         .expect(200)
         .then((res) => {
           expect(res.body.length).to.equal(numComments-1);
-          })  
+        })  
     });    
     it('returns correct status code for invalid comment id', () => {
         return request
         .delete('/api/comments/123')
         .expect(400)
+        .then((res) => {
+            expect(res.body.message).to.equal('Invalid comment ID');
+        }) 
     });
   });
 });

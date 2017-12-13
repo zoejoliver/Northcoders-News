@@ -29,7 +29,7 @@ function removeComment (req, res, next) {
         })
     })
     .catch((err) => {
-        if (err.name === 'CastError') return next({status: 400, message: 'Comment not found'});
+        if (err.name === 'CastError') return next({status: 400, message: 'Invalid comment ID'});
         next(err);
     })
 }
