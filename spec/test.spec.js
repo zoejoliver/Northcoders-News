@@ -41,12 +41,12 @@ let newData;
         expect(res.body.length).to.equal(1);
         })
     });
-    it('sends back correct status code for invalid id', () => {
+    it('sends back correct status code for invalid topic', () => {
         return request
         .get('/api/topics/moomins/articles')
         .expect(404)
         .then((res) => {
-        expect(res.body.message).to.equal('Invalid topic ID');
+        expect(res.body.message).to.equal('Page not found');
         })
     });
     it('sends back topic articles with comment count', () => {
@@ -84,10 +84,10 @@ let newData;
         })
         })
     });
-    it('sends back correct status code for invalid id', () => {
+    it('sends back correct status code for invalid article id', () => {
         return request
         .get('/api/articles/zoe/comments')
-        .expect(404)
+        .expect(400)
         .then((res) => {
         expect(res.body.message).to.equal('Invalid article ID');
         })
@@ -139,7 +139,7 @@ let newData;
         .get('/api/users/zoe')
         .expect(404)
         .then((res) => {
-        expect(res.body.message).to.equal('Invalid username');
+        expect(res.body.message).to.equal('Page not found');
         })
     });
   });
@@ -189,7 +189,7 @@ let newData;
     it('returns correct status code for invalid comment id', () => {
         return request
         .put('/api/comments/123?vote=down')
-        .expect(404)
+        .expect(400)
     });
   });
   describe('DELETE /comments', () => {
@@ -207,7 +207,7 @@ let newData;
     it('returns correct status code for invalid comment id', () => {
         return request
         .delete('/api/comments/123')
-        .expect(404)
+        .expect(400)
     });
   });
 });

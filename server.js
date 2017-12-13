@@ -16,11 +16,12 @@ app.use(bodyParser);
 app.use('/api', apiRouter);
 
 app.use('/*', (req, res) => {
-  res.status(404).send({message: 'Page not found'});
+  return res.status(404).send({message: 'Page Not found'});
 });
   
 app.use((err, req, res, next) => {
-  if (err.status === 404) return res.status(404).send({message: err.message});
+  if (err.status === 400) return res.status(400).send({message: err.message});
+  if (err.status === 404) return res.status(404).send({message: 'Page not found'});
   else return next(err);
 });
 

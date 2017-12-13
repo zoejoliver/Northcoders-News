@@ -13,7 +13,7 @@ function getTopics (req, res, next) {
 function getArticlesByTopic (req, res, next) {
     Article.find({belongs_to: req.params.topic_id})
     .then((articles) => {
-        if (articles.length === 0) return next({status: 404, message: 'Invalid topic ID'})
+        if (articles.length === 0) return next({status: 404})
         Promise.all(getCommentCount(articles))
         .then((commentCount) => {
             const updatedArticles = addCommentCount(articles, commentCount);
@@ -21,6 +21,7 @@ function getArticlesByTopic (req, res, next) {
         })
     })
     .catch((err) => {
+        if (err.name === 'CastError') return next({status: 400, message: 'Invalid topic ID'})
         next(err);
     })
 }

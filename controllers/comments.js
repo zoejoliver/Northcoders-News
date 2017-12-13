@@ -5,7 +5,8 @@ function addCommentVote (req, res, next) {
     const vote = updateVoteCount(upOrDown);
     Comment.findOneAndUpdate({_id: req.params.comment_id}, { $inc: { votes: vote } }, { new: true })
     .then((comment) => {
-        if (req.body.article === undefined) res.send(comment);
+        if (comment.length === 0) return next({status: 404});
+        if (!req.body.article) res.send(comment);
         else {
             Comment.find({belongs_to: req.body.article_id})
             .then((comments) => {
@@ -14,7 +15,7 @@ function addCommentVote (req, res, next) {
         }
     })
     .catch((err) => {
-        if (err.name === 'CastError') return next({status: 404, message: 'Invalid comment ID'})
+        if (err.name === 'CastError') return next({status: 400, message: 'Invalid comment ID'})
         next(err);
     })
 }
@@ -28,7 +29,7 @@ function removeComment (req, res, next) {
         })
     })
     .catch((err) => {
-        if (err.name === 'CastError') return next({status: 404, message: 'Comment not found'});
+        if (err.name === 'CastError') return next({status: 400, message: 'Comment not found'});
         next(err);
     })
 }

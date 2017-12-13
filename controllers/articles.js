@@ -17,6 +17,7 @@ function getArticles (req, res, next) {
 function getArticleById (req, res, next) {
     Article.find({_id: req.params.article_id})
     .then((article) => {
+        if (article.length === 0) return next({status: 404});
         Promise.all(getCommentCount(article))
         .then((commentCount) => {
             const updatedArticles = addCommentCount(article, commentCount);
@@ -24,7 +25,7 @@ function getArticleById (req, res, next) {
         })
     })
     .catch((err) => {
-        if (err.name === 'CastError') return next({status: 404, message: 'Invalid article ID'});
+        if (err.name === 'CastError') return next({status: 400, message: 'Invalid article ID'});
         return next(err);
     })
 }
@@ -45,10 +46,11 @@ function addCommentCount (arr, count) {
 function getArticleComments (req, res, next) {
     Comment.find({belongs_to: req.params.article_id})
     .then((comments) => {
+        if (comments.length === 0) return next({status: 404});
         res.send(comments);
     })
     .catch((err) => {
-        if (err.name === 'CastError') return next({status: 404, message: 'Invalid article ID'})
+        if (err.name === 'CastError') return next({status: 400, message: 'Invalid article ID'})
         return next(err);
     })
 }
@@ -79,6 +81,7 @@ function addArticleVote (req, res, next) {
     const vote = updateVoteCount(upOrDown);
     Article.findOneAndUpdate({_id:req.params.article_id}, { $inc: { votes: vote } }, { new: true })
     .then((article) => {
+        if (article.length === 0) return next({status: 400});
         if (article.belongs_to === 'cats') {
             res.send(article)
         }
@@ -92,7 +95,7 @@ function addArticleVote (req, res, next) {
         }
     })
     .catch((err) => {
-        if (err.name === 'CastError') return next({status: 404, message: 'Invalid article ID'})
+        if (err.name === 'CastError') return next({status: 400, message: 'Invalid article ID'})
         return next(err);
     })
 }
