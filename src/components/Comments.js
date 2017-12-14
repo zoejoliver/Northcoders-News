@@ -48,25 +48,39 @@ class Comments extends React.Component {
               <input value = {this.state.comment} className='add-comment-form' onChange={this.changeHandler} type='text' placeholder="Type your comment here..."></input>
               <input className='submit-form' onClick={this.submitHandler} type='submit' value="Submit"></input>
             </div>
-            {comments.map((comment) => {
-              return (
-                <CommentItem 
-                key={comment.created_at}
-                loading = {this.props.loading}
-                comment = {comment}
-                article_id = {comment.belongs_to}
-                removeHandler = {this.removeHandler}
-                />
-              );
-            })}
+              {comments.map((comment) => {
+                return (
+                  <CommentItem 
+                  key={comment.created_at}
+                  loading = {this.props.loading}
+                  comment = {comment}
+                  article_id = {comment.belongs_to}
+                  removeHandler = {this.removeHandler}
+                  />
+                );
+              })}
           </div>
         </div>
       );
     }
     else {
-      return (
-        <Loading />
-      );
+      if (!this.props.loading) {
+        return (
+          <div className='main container-fluid'>  
+            <div>
+              <div className = "comment-form">
+                <input value = {this.state.comment} className='add-comment-form' onChange={this.changeHandler} type='text' placeholder="Type your comment here..."></input>
+                <input className='submit-form' onClick={this.submitHandler} type='submit' value="Submit"></input>
+              </div>
+            </div>
+          </div>
+        )
+      }
+      else {
+        return (
+          <Loading />
+        );
+      }
     }
   }
 

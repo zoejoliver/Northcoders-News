@@ -165,8 +165,7 @@ let newData;
         })
     });
     it('returns correct status code for invalid article ID', () => {
-        const articleId = '123'
-        const prevVotes = newData.articles[0].votes;
+        const articleId = '123';
         return request
         .put(`/api/articles/${articleId}?vote=down`)
         .expect(400)
