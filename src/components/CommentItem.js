@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {changeVote, removeComment} from '../actions/comments';
+import {changeVote} from '../actions/comments';
 import PT from 'prop-types';
 import moment from 'moment';
 
@@ -11,7 +11,6 @@ class CommentItem extends React.Component {
       votes: this.props.comment.votes
     };
     this.voteClickHandler = this.voteClickHandler.bind(this);
-    this.removeHandler = this.removeHandler.bind(this);
   }
   
   render () {
@@ -20,7 +19,7 @@ class CommentItem extends React.Component {
         <div className='comment-item'>
             <div className='row'>
                 <p className='comment-date'>{moment(comment.created_at).fromNow()}</p>
-                <button className='comment-rmv-btn' name={comment.belongs_to} id={comment._id} onClick={this.removeHandler}> remove </button>
+                <button className='comment-rmv-btn' name={comment.belongs_to} id={comment._id} onClick={this.props.removeHandler}> remove </button>
             </div>
             <div className='row comment-body'>
                 <p className='comment-bod'>{comment.body}</p>
@@ -46,12 +45,6 @@ class CommentItem extends React.Component {
       )
   }
 
-  removeHandler (e) {
-    e.preventDefault();
-    const id = e.target.id;
-    const article_id = e.target.name;
-    this.props.removeComment(id, article_id);
-  }
   voteClickHandler (e) {
     e.preventDefault();
     const article_id = this.props.article_id;
@@ -78,9 +71,6 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   changeVote: (input, id, mode, article_id) => {
     dispatch(changeVote(input, id, mode, article_id));
-  },
-  removeComment: (id, article_id) => {
-    dispatch(removeComment(id, article_id));
   }
 });
 
@@ -89,7 +79,6 @@ CommentItem.propTypes = {
   loading: PT.bool.isRequired,
   error: PT.any,
   changeVote: PT.func.isRequired,
-  removeComment: PT.func.isRequired,
   article_id: PT.string.isRequired,
   match: PT.any.isRequired
 };
