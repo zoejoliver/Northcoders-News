@@ -76,31 +76,34 @@ class Comments extends React.Component {
     });
   }
   submitHandler (e) {
+    e.preventDefault();
     let article_id;
     if (this.props.article_id) {
       article_id = this.props.article_id;
     }
     else article_id = this.props.match.params.article_id;
-    e.preventDefault();
     const comment = this.state.comment;
+
+    const newComment = [{
+        body: comment,
+        belongs_to: article_id,
+        created_by: 'northcoder',
+        votes: 0,
+        created_at: Date.now()
+      }]
+    const prevComments = this.props.comments;
+    const newComments = newComment.concat(prevComments);
+    this.setState({
+      commentList: newComments,
+      loadingFlag: true
+    })
+
     this.props.addComment(article_id, comment);
     this.setState({
       comment: ''
     });
   }
-  // const newComment = [{
-  //   body: comment,
-  //   belongs_to: article_id,
-  //   created_by: 'northcoder',
-  //   votes: 0,
-  //   created_at: Date.now()
-  // }]
-  // const prevComments = this.props.comments;
-  // const newComments = newComment.concat(prevComments);
-
-  // this.setState({
-  //   commentList: newComments
-  // })
+  
   removeHandler (e) {
       e.preventDefault();
       const id = e.target.id;
